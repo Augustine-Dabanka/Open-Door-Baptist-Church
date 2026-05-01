@@ -610,17 +610,132 @@ footer a:hover { color: var(--accent-2) !important; padding-left: 4px; }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ============ RESPONSIVE ============ */
+/* ============================================
+   RESPONSIVE — Optimized for ALL devices
+   ============================================ */
+
+/* Universal: never let things overflow horizontally */
+img, iframe, video { max-width: 100%; height: auto; }
+.container, .container-fluid { padding-left: 15px; padding-right: 15px; }
+
+/* ---- Large desktops (≥1400px) ---- */
+@media (min-width: 1400px) {
+    .container { max-width: 1320px; }
+    .hero-section .carousel-item { height: 90vh; }
+}
+
+/* ---- Tablets & small laptops (≤992px) ---- */
 @media (max-width: 992px) {
     .hero-section .carousel-item { height: 70vh; min-height: 420px; }
+    .hero-title { font-size: clamp(1.8rem, 5vw, 3rem); }
+    .hero-sub { font-size: 1rem; }
+    .hero-caption { bottom: 18%; padding: 0 20px; }
     .pastor-img { width: 220px; height: 220px; }
+    .navbar-nav .nav-link { margin: 4px 0; padding: 10px 14px !important; }
+    .navbar-collapse {
+        background: rgba(74,20,140,0.97);
+        border-radius: 14px;
+        padding: 14px;
+        margin-top: 10px;
+        box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+    }
+    .About { padding: 40px 15px; }
+    .Ministries, .Meeting, .sermon-section, .about-section, .vision-mission, .contact-section, .content-section {
+        padding: 50px 15px;
+    }
+    .fb-feed-wrap { min-height: auto; }
+    .map-wrap { height: 320px; }
+    .featured-sermon { padding: 28px; }
+    .Min-Sec img { height: 230px; }
 }
-@media (max-width: 576px) {
-    .navbar-brand { font-size: 1rem; }
-    .hero-section .carousel-item { height: 65vh; min-height: 380px; }
-    .hero-caption { bottom: 15%; }
-    .Min-Sec img { height: 220px; }
-    .pastor-img { width: 180px; height: 180px; }
-    .form-section { margin: 30px 15px; padding: 22px; }
-    .content-card { padding: 25px; }
+
+/* ---- Phones (≤768px) ---- */
+@media (max-width: 768px) {
+    h1 { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+    h2 { font-size: clamp(1.4rem, 5vw, 1.9rem); }
+    h3 { font-size: 1.3rem; }
+    .navbar-brand { font-size: 0.95rem; max-width: 78%; }
+    .navbar-logo { height: 42px; width: 42px; }
+    .hero-section .carousel-item { height: 75vh; min-height: 460px; }
+    .hero-img { filter: brightness(0.55); }
+    .hero-caption { bottom: 12%; padding: 0 16px; }
+    .hero-title { font-size: clamp(1.5rem, 6vw, 2.2rem); margin-bottom: 0.6rem; }
+    .hero-sub { font-size: 0.95rem; margin-bottom: 1.2rem; }
+    .btn-3d { padding: 12px 26px; font-size: 0.95rem; }
+    .carousel-control-prev, .carousel-control-next { width: 12%; }
+    .carousel-control-prev-icon, .carousel-control-next-icon { padding: 16px; }
+    .carousel-indicators { margin-bottom: 0.5rem; }
+    .Min-Sec img { height: 200px; }
+    .Min-Sec .text { padding: 22px 12px 14px; font-size: 1.1rem; }
+    .pastor-img { width: 200px; height: 200px; }
+    .testimonial-text { font-size: 1rem; padding: 14px; }
+    .form-section, .info-card, .form-card, .content-card { padding: 22px; }
+    .form-section { margin: 30px 15px; }
+    .feature-grid { gap: 14px; }
+    .feature-box { padding: 22px 16px; }
+    .vm-card { padding: 30px 20px; }
+    .table-3d th, .table-3d td { padding: 12px 8px; font-size: 0.9rem; }
+    .map-wrap { height: 280px; }
+    footer { text-align: center; }
+    footer .col-md-2, footer .col-md-3 { margin-top: 25px; }
+    /* Lighter touch on touch devices */
+    .Min-Sec:hover { transform: translateY(-5px); }
+    .vm-card:hover, .feature-box:hover { transform: translateY(-5px); }
+}
+
+/* ---- Small phones (≤480px) ---- */
+@media (max-width: 480px) {
+    .navbar-brand { font-size: 0.82rem; gap: 8px; }
+    .navbar-brand .navbar-logo { height: 36px; width: 36px; }
+    .hero-section .carousel-item { height: 80vh; min-height: 440px; }
+    .hero-title { font-size: 1.6rem; }
+    .hero-sub { font-size: 0.88rem; }
+    .btn-3d { padding: 11px 22px; font-size: 0.9rem; }
+    .Head-main h1 { font-size: 1.5rem; }
+    .Min-Sec img { height: 180px; }
+    .pastor-img { width: 170px; height: 170px; border-width: 4px; }
+    .form-section, .info-card, .form-card, .content-card { padding: 18px; border-radius: 16px; }
+    .form-control, .form-select { padding: 10px 12px; font-size: 0.95rem; }
+    .table-3d th, .table-3d td { padding: 10px 6px; font-size: 0.82rem; }
+    .featured-sermon { padding: 20px; }
+    .sermon-filters { gap: 6px; }
+    .filter-btn { padding: 8px 14px; font-size: 0.85rem; }
+    .newsletter-cta { padding: 35px 20px; }
+    .newsletter-form { flex-direction: column; }
+    .newsletter-form input, .newsletter-form button { width: 100%; min-width: 0; }
+    .map-wrap { height: 240px; }
+    footer .container { padding: 0 18px; }
+}
+
+/* ---- Tiny phones (≤360px) ---- */
+@media (max-width: 360px) {
+    .navbar-brand { font-size: 0.72rem; }
+    .hero-title { font-size: 1.4rem; }
+    .Min-Sec img { height: 160px; }
+    .pastor-img { width: 150px; height: 150px; }
+}
+
+/* ---- Landscape phones — keep hero readable ---- */
+@media (max-width: 920px) and (orientation: landscape) and (max-height: 500px) {
+    .hero-section .carousel-item { height: 110vh; min-height: 360px; }
+    .hero-caption { bottom: 20%; }
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ---- Touch devices: disable hover-tilt that doesn't work without a mouse ---- */
+@media (hover: none) {
+    .Min-Sec:hover { transform: none; box-shadow: var(--shadow-3d); }
+    .Min-Sec:hover img { transform: none; }
+    .pastor-card:hover .pastor-img { transform: none; }
+    .vm-card:hover, .feature-box:hover, .img-3d-wrap:hover { transform: none; }
+    .tilt-card { transform: none !important; }
 }
