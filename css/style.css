@@ -86,6 +86,124 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
 }
 .navbar-toggler { border-color: rgba(255,255,255,0.3); }
 
+/* ============ DROPDOWN MENU ============ */
+.odbc-dropdown {
+    background: linear-gradient(135deg, #4a148c 0%, #6a1b9a 50%, #ad1457 100%);
+    border: none;
+    border-radius: 14px;
+    padding: 8px;
+    margin-top: 8px !important;
+    box-shadow: 0 14px 32px rgba(74,20,140,0.45), 0 6px 14px rgba(0,0,0,0.2);
+    min-width: 220px;
+    animation: dropIn 0.25s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes dropIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.odbc-dropdown .dropdown-item {
+    color: rgba(255,255,255,0.9);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+}
+.odbc-dropdown .dropdown-item:hover,
+.odbc-dropdown .dropdown-item:focus {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    transform: translateX(3px);
+}
+.odbc-dropdown .dropdown-item.active,
+.odbc-dropdown .dropdown-item:active {
+    background: linear-gradient(135deg, #ec407a, #8e24aa);
+    color: #fff;
+}
+.odbc-dropdown .dropdown-item i {
+    color: var(--accent);
+    font-size: 0.9rem;
+    width: 18px;
+}
+.dropdown-toggle::after {
+    margin-left: 0.4em;
+    vertical-align: middle;
+    transition: transform 0.3s ease;
+}
+.dropdown.show .dropdown-toggle::after { transform: rotate(180deg); }
+
+/* ============ LEADERSHIP CARDS ============ */
+.leader-card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow-3d);
+    transition: transform 0.4s cubic-bezier(.2,.8,.2,1), box-shadow 0.4s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.leader-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 48px rgba(74,20,140,0.25), 0 10px 20px rgba(236,64,122,0.18);
+}
+.leader-photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f3e9ff, #ffe0ec);
+    position: relative;
+}
+.leader-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+.leader-card:hover .leader-photo img { transform: scale(1.06); }
+.leader-photo::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(74,20,140,0.35), transparent);
+    pointer-events: none;
+}
+.leader-body {
+    padding: clamp(18px, 2vw, 26px);
+    text-align: center;
+}
+.leader-body h4 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary-dark);
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+.leader-role {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #fff;
+    background: linear-gradient(135deg, #ec407a, #8e24aa);
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+}
+.leader-body p {
+    color: #555;
+    line-height: 1.65;
+    font-size: 0.95rem;
+    margin-bottom: 0;
+}
+.leader-card.compact .leader-photo { aspect-ratio: 1 / 1; }
+.leader-card.compact .leader-body { padding: 16px; }
+.leader-card.compact .leader-body h4 { font-size: 1.1rem; }
+.leader-card.compact .leader-role { margin-bottom: 0; font-size: 0.72rem; }
+
 /* ============ HERO CAROUSEL ============ */
 .hero-section { position: relative; perspective: 1500px; }
 /* Aspect-ratio is set in the fluid block at the bottom of the file — don't fix the height here */
@@ -350,6 +468,42 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
     background-size: 50%;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+/* Hero carousel indicators — minimal hairline strokes, anchored at the very bottom */
+#heroCarousel .carousel-indicators {
+    margin: 0;
+    bottom: 14px;
+    gap: 6px;
+    z-index: 5;
+}
+#heroCarousel .carousel-indicators [data-bs-target] {
+    width: 28px;
+    height: 1px;
+    border-radius: 0;
+    background-color: rgba(255,255,255,0.5);
+    /* Slim transparent tap-target padding (still clickable, but doesn't visually cover anything) */
+    border: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    margin: 0;
+    opacity: 1;
+    box-shadow: none;
+    box-sizing: content-box;
+    transition: width 0.35s ease, background-color 0.3s ease;
+}
+#heroCarousel .carousel-indicators [data-bs-target]:hover {
+    background-color: rgba(255,255,255,0.85);
+}
+#heroCarousel .carousel-indicators [data-bs-target].active {
+    width: 44px;
+    background-color: #fff;
+    box-shadow: none;
+}
+@media (max-width: 480px) {
+    #heroCarousel .carousel-indicators { bottom: 10px; }
+    #heroCarousel .carousel-indicators [data-bs-target] { width: 20px; }
+    #heroCarousel .carousel-indicators [data-bs-target].active { width: 32px; }
 }
 
 /* ============ HERO BANNER (sub-pages) ============ */
