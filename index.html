@@ -10,6 +10,10 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+    <link rel="icon" href="images/Logo.jpg">
+    <link rel="apple-touch-icon" href="images/Logo.jpg">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#2a1533">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -70,9 +74,22 @@
                         class="d-block w-100 hero-img" alt="Welcome">
                     <div class="hero-overlay"></div>
                     <div class="carousel-caption hero-caption">
+                        <!-- Live "next service" pill (auto-updates to next Sunday 7:00 AM) -->
+                        <div class="hero-next">
+                            <span class="hn-label"><i class="fas fa-broadcast-tower"></i>Next service in</span>
+                            <div class="countdown compact" data-next-service="0:07:00">
+                                <div class="count-box" data-u="d"><span class="count-num">--</span></div>
+                                <div class="count-box" data-u="h"><span class="count-num">--</span></div>
+                                <div class="count-box" data-u="m"><span class="count-num">--</span></div>
+                                <div class="count-box" data-u="s"><span class="count-num">--</span></div>
+                            </div>
+                        </div>
                         <h1 class="hero-title">Welcome To Our Church Family</h1>
                         <p class="hero-sub">A place of refreshing change where souls are transformed.</p>
-                        <a href="about.html" class="btn-3d">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
+                        <div class="hero-cta-group">
+                            <a href="contact.html" class="btn-3d">Plan Your Visit <i class="fas fa-arrow-right ms-2"></i></a>
+                            <a href="sermons.html" class="btn-ghost"><i class="fas fa-play"></i>Watch a Sermon</a>
+                        </div>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -81,8 +98,11 @@
                     <div class="hero-overlay"></div>
                     <div class="carousel-caption hero-caption">
                         <h1 class="hero-title">Come Worship With Us</h1>
-                        <p class="hero-sub">Sundays at 7:00 AM | 10:00AM — Experience the presence of God.</p>
-                        <a href="#Meeting" class="btn-3d">See Service Times</a>
+                        <p class="hero-sub">Sundays at 7:00 AM &amp; 10:00 AM — experience the presence of God.</p>
+                        <div class="hero-cta-group">
+                            <a href="#Meeting" class="btn-3d">Service Times <i class="fas fa-clock ms-2"></i></a>
+                            <a href="#Ministries" class="btn-ghost"><i class="fas fa-people-group"></i>Our Ministries</a>
+                        </div>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -91,7 +111,9 @@
                     <div class="carousel-caption hero-caption">
                         <h1 class="hero-title">A Community Of Faith</h1>
                         <p class="hero-sub">Grow with brothers and sisters who love the Lord.</p>
-                        <a href="#Ministries" class="btn-3d">Our Ministries</a>
+                        <div class="hero-cta-group">
+                            <a href="programs.html" class="btn-3d">Programs &amp; Events <i class="fas fa-arrow-right ms-2"></i></a>
+                        </div>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -101,7 +123,9 @@
                     <div class="carousel-caption hero-caption">
                         <h1 class="hero-title">God Loves You, So Do We</h1>
                         <p class="hero-sub">You belong here. Welcome home.</p>
-                        <a href="contact.html" class="btn-3d">Get In Touch</a>
+                        <div class="hero-cta-group">
+                            <a href="contact.html" class="btn-3d">Get In Touch <i class="fas fa-arrow-right ms-2"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -114,55 +138,67 @@
         </div>
     </section>
 
-    <!-- LEADERSHIP -->
-    <section class="About py-5" id="About">
-        <div class="Head-main">
-            <div class="H-M">
-                <h1>Our Leadership</h1>
-            </div>
-        </div>
-
-        <div id="pastorCarousel" class="carousel slide mt-4" data-bs-ride="carousel" data-bs-interval="6000">
-            <div class="carousel-inner">
-                <div class="carousel-item active text-center">
-                    <div class="pastor-card">
-                        <img src="images/IMG-20260502-WA0006.jpg" class="d-block pastor-img"
-                            alt="Pastor David Frimpong">
-                        <div class="testimonial-text">
-                            <h5>Rev David Frimpong</h5>
-                            <p>"Interim Pastor-In-Charge"</p>
+    <!-- QUICK-INFO STRIP — overlaps the hero for a modern, welcoming entry -->
+    <section class="info-strip">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="visit-card">
+                        <span class="vc-icon"><i class="fas fa-clock"></i></span>
+                        <div>
+                            <h4>Sunday Services</h4>
+                            <p>Miracle Service every Sunday at <strong>7:00 AM</strong> &amp; <strong>10:00 AM</strong>.</p>
+                            <a href="#Meeting" class="vc-link">All meeting days <i class="fas fa-arrow-right ms-1"></i></a>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item text-center">
-                    <div class="pastor-card">
-                        <img src="images/facebook_1718476727429_7207813811767713590.jpg" class="d-block pastor-img"
-                            alt="Pastor Kofi Akodwaa Boadi">
-                        <div class="testimonial-text">
-                            <h5>Pastor Kofi Akodwaa Boadi</h5>
-                            <p>"Empowering the youth and building strong spiritual foundations in the church."</p>
+                <div class="col-md-4">
+                    <div class="visit-card">
+                        <span class="vc-icon"><i class="fas fa-location-dot"></i></span>
+                        <div>
+                            <h4>Find Us</h4>
+                            <p>Kentinkrono, Kumasi — Ghana. Everyone is welcome home.</p>
+                            <a href="contact.html" class="vc-link">Get directions <i class="fas fa-arrow-right ms-1"></i></a>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-item text-center">
-                    <div class="pastor-card">
-                        <img src="images/IMG-20260502-WA0005.jpg" class="d-block pastor-img" alt="Mr. Ofosu Agyemang">
-                        <div class="testimonial-text">
-                            <h5>Mr. Ofosu Agyemang</h5>
-                            <p>"Dedicated to outreach and helping souls experience the transforming power of God."</p>
+                <div class="col-md-4">
+                    <div class="visit-card">
+                        <span class="vc-icon"><i class="fas fa-video"></i></span>
+                        <div>
+                            <h4>Watch Online</h4>
+                            <p>Can't make it in person? Join our services and sermons online.</p>
+                            <a href="sermons.html" class="vc-link">Watch now <i class="fas fa-arrow-right ms-1"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#pastorCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon bg-dark rounded-circle"></span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#pastorCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon bg-dark rounded-circle"></span>
-            </button>
         </div>
+    </section>
 
-        <a href="about.html" class="learn-btn">Learn More</a>
+    <!-- WELCOME -->
+    <section class="welcome-section" id="About">
+        <div class="container">
+            <div class="welcome-wrap">
+                <div class="welcome-media reveal-on-scroll">
+                    <img src="images/pngtree-a-white-catholic-church-on-a-summer-day-with-dark-clouds-image_15680672.jpg"
+                        alt="Open Door Baptist Church">
+                    <span class="wm-badge"><i class="fas fa-dove"></i>An Open Door for every soul</span>
+                </div>
+                <div class="welcome-text">
+                    <span class="eyebrow">Welcome to Open Door</span>
+                    <h2>A Place of Refreshing Change</h2>
+                    <p>We are a family of believers in Kumasi, Ghana, pursuing the presence of God and the transformation
+                        He brings. A place where sickness cannot thrive and where every soul finds a home.</p>
+                    <p>Whether you're exploring faith for the first time or looking for a church family, there's a seat
+                        here for you.</p>
+                    <div class="welcome-actions">
+                        <a href="about.html" class="btn-3d">About Us <i class="fas fa-arrow-right ms-2"></i></a>
+                        <a href="leadership.html" class="btn-ghost" style="color:var(--brand-700);border-color:var(--brand-600);background:transparent;"><i class="fas fa-users"></i>Our Leadership</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- BG-REVEAL: Verse banner over the church background -->
@@ -436,16 +472,6 @@
         </div>
     </section>
 
-    <!-- BG-REVEAL: Second showcase between meetings and sermons -->
-    <section class="bg-reveal">
-        <div class="reveal-content">
-            <h2>An Open Door For Every Soul</h2>
-            <p>Come as you are. Leave transformed by the love of Christ.</p>
-            <cite>— You belong here</cite>
-        </div>
-        <i class="fas fa-chevron-down scroll-cue"></i>
-    </section>
-
     <!-- SERMONS / FACEBOOK FEED -->
     <section class="sermon-section py-5" id="Sermons">
         <div class="container">
@@ -492,30 +518,17 @@
         </div>
     </section>
 
-    <!-- CONTACT FORM -->
-    <section id="Contact">
-        <div class="container form-section tilt-card">
-            <h2 class="text-center"><i class="fas fa-envelope"></i> Contact the Church</h2>
-            <form class="ajax-form">
-                <div class="mb-3"><label class="form-label">Full Name</label><input type="text" class="form-control"
-                        required></div>
-                <div class="mb-3"><label class="form-label">Email</label><input type="email" class="form-control"
-                        required></div>
-                <div class="mb-3"><label class="form-label">Phone</label><input type="tel" class="form-control"></div>
-                <div class="mb-3">
-                    <label class="form-label">Reason</label>
-                    <select class="form-select" required>
-                        <option selected disabled value="">Choose...</option>
-                        <option>Prayer Request</option>
-                        <option>Counseling</option>
-                        <option>Join the Church</option>
-                        <option>General Inquiry</option>
-                    </select>
-                </div>
-                <div class="mb-3"><label class="form-label">Message</label><textarea class="form-control" rows="4"
-                        required></textarea></div>
-                <button type="submit" class="btn-3d w-100"><i class="fas fa-paper-plane me-2"></i>Submit</button>
-            </form>
+    <!-- PLAN YOUR VISIT / GET IN TOUCH CTA -->
+    <section class="visit-cta" id="Contact">
+        <div class="container">
+            <span class="eyebrow">We'd love to meet you</span>
+            <h2>Plan Your Visit</h2>
+            <p>Have a prayer request, a question, or want to join the family? Reach out — we're here for you, and
+                there's a warm welcome waiting.</p>
+            <div class="hero-cta-group">
+                <a href="contact.html" class="btn-3d">Get In Touch <i class="fas fa-arrow-right ms-2"></i></a>
+                <a href="#Meeting" class="btn-ghost"><i class="fas fa-clock"></i>Service Times</a>
+            </div>
         </div>
     </section>
 

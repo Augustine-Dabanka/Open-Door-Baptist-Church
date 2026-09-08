@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Reveal-on-scroll — uses a wrapper class so it doesn't fight with tilt-card transforms
-    const revealEls = document.querySelectorAll('.Min-Sec, .sermon-card, .fb-feed-wrap, .table-3d, .form-section, .pastor-card, .vm-card, .feature-box, .info-card, .form-card, .content-card, .map-wrap, .program-card, .project-card, .program-banner, .banner-slot, .video-ph, .video-embed, .countdown-card, .teaser-card');
+    const revealEls = document.querySelectorAll('.Min-Sec, .sermon-card, .fb-feed-wrap, .table-3d, .form-section, .pastor-card, .vm-card, .feature-box, .info-card, .form-card, .content-card, .map-wrap, .program-card, .project-card, .program-banner, .banner-slot, .video-ph, .video-embed, .countdown-card, .teaser-card, .welcome-media, .visit-card');
     const io = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {

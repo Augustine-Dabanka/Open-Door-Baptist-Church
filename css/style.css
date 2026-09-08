@@ -1810,7 +1810,12 @@ body {
     color: var(--ink);
     letter-spacing: 0.1px;
 }
-h1, h2, h3, h4, h5 { letter-spacing: -0.01em; color: var(--ink); }
+h1, h2, h3, h4, h5 { letter-spacing: -0.01em; }
+/* Default heading color for light sections; dark-on-dark sections set their own white */
+.welcome-text h2, .Head-main h1, .H-M h1, .about-content h2, .content-card h2,
+.info-card h2, .form-card h2, .vm-card h3, .feature-box h4, .program-body h3,
+.project-card h3, .visit-card h4, .heading-lead h1, .heading-lead h2,
+.leader-body h4, .sermon-card .card-title { color: var(--ink); }
 
 /* Section rhythm: more air */
 .About, .Ministries, .Meeting, .sermon-section,
@@ -1937,9 +1942,11 @@ h1, h2, h3, h4, h5 { letter-spacing: -0.01em; color: var(--ink); }
 
 /* ---------------- HERO (home carousel) ---------------- */
 .hero-overlay {
-    background: linear-gradient(180deg, rgba(20,10,26,0.35) 0%, rgba(20,10,26,0.7) 100%);
+    background:
+        radial-gradient(ellipse at center, rgba(20,10,26,0.25) 0%, rgba(20,10,26,0.55) 100%),
+        linear-gradient(180deg, rgba(42,21,51,0.55) 0%, rgba(20,10,26,0.4) 45%, rgba(20,10,26,0.8) 100%);
 }
-.hero-img { filter: brightness(0.72); }
+.hero-img { filter: brightness(0.5) saturate(1.05); }
 .hero-title { text-shadow: 0 2px 18px rgba(0,0,0,0.55); font-weight: 800; }
 .hero-sub { text-shadow: 0 2px 10px rgba(0,0,0,0.5); color: rgba(255,255,255,0.92); }
 
@@ -2065,3 +2072,160 @@ footer .text-info { color: var(--gold) !important; }
 /* Kill the leftover glow/pulse keyframes and heavy tilt on touch + desktop */
 .tilt-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
 .welcome-strip { background: var(--brand-800); box-shadow: none; }
+
+
+/* ============================================================================
+   HOME REDESIGN LAYER (loaded last) — flagship layout + global footer polish
+   Palette unchanged: aubergine (--brand-*) + gold (--gold) on white.
+   ============================================================================ */
+
+/* ---- HERO: dual CTAs + live next-service pill --------------------------- */
+.hero-cta-group {
+    display: flex;
+    gap: clamp(10px, 1.5vw, 16px);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 6px;
+}
+.btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: clamp(10px, 1.2vw, 15px) clamp(20px, 3vw, 34px);
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    color: #fff;
+    background: rgba(255,255,255,0.10);
+    border: 1.5px solid rgba(255,255,255,0.65);
+    backdrop-filter: blur(4px);
+    text-decoration: none;
+    transition: background 0.25s ease, transform 0.2s ease, border-color 0.25s ease;
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.20); color: #fff; transform: translateY(-2px); border-color: #fff; }
+
+.hero-next {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 auto 20px;
+    padding: 8px 8px 8px 18px;
+    background: rgba(20,10,26,0.42);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 50px;
+    backdrop-filter: blur(6px);
+    color: #fff;
+    font-size: clamp(0.72rem, 0.66rem + 0.3vw, 0.9rem);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.28);
+}
+.hero-next .hn-label { display: inline-flex; align-items: center; gap: 7px; font-weight: 600; letter-spacing: 0.3px; white-space: nowrap; }
+.hero-next .hn-label i { color: var(--gold); }
+.hero-next .countdown.compact { margin: 0; gap: 5px; }
+.hero-next .countdown.compact .count-box {
+    min-width: 0; padding: 5px 8px; border-radius: 8px;
+    background: rgba(255,255,255,0.12); border: none; box-shadow: none;
+}
+.hero-next .countdown.compact .count-num { font-family: 'Poppins', sans-serif; font-size: clamp(0.8rem, 0.7rem + 0.4vw, 1.05rem); font-weight: 700; }
+.hero-next .countdown.compact .count-label { display: none; }
+.hero-next .countdown.compact .count-box::after {
+    content: attr(data-u);
+    font-size: 0.55rem; letter-spacing: 1px; opacity: 0.7; margin-left: 2px; text-transform: uppercase;
+}
+@media (max-width: 560px) { .hero-next { display: none; } }   /* keep hero clean on tiny screens */
+
+/* ---- QUICK-INFO STRIP (Times / Location / Watch) ------------------------ */
+.info-strip { background: var(--surface); padding: clamp(30px, 4vw, 48px) clamp(12px, 3vw, 24px); }
+.info-strip .container { margin-top: clamp(-70px, -6vw, -40px); position: relative; z-index: 5; }
+.visit-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: clamp(22px, 3vw, 34px);
+    height: 100%;
+    box-shadow: 0 1px 2px rgba(30,16,42,0.05), 0 16px 40px rgba(30,16,42,0.10);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.visit-card:hover { transform: translateY(-5px); box-shadow: 0 1px 2px rgba(30,16,42,0.05), 0 22px 50px rgba(30,16,42,0.16); }
+.visit-card .vc-icon {
+    flex: 0 0 auto;
+    width: 52px; height: 52px; border-radius: 12px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 1.35rem; color: #fff;
+    background: linear-gradient(140deg, var(--brand-600), var(--brand-800));
+}
+.visit-card h4 { margin: 2px 0 6px; color: var(--brand-900); font-weight: 700; }
+.visit-card p { margin: 0; color: var(--muted); line-height: 1.6; font-size: 0.92rem; }
+.visit-card a.vc-link { color: var(--brand-600); font-weight: 600; text-decoration: none; font-size: 0.9rem; }
+.visit-card a.vc-link:hover { color: var(--gold); }
+
+/* ---- WELCOME band (image + text) ---------------------------------------- */
+.welcome-section { background: var(--surface); padding: clamp(56px, 8vw, 100px) clamp(12px, 3vw, 24px); }
+.welcome-wrap { display: grid; grid-template-columns: 1fr; gap: clamp(28px, 4vw, 56px); align-items: center; }
+@media (min-width: 900px) { .welcome-wrap { grid-template-columns: 1.05fr 1fr; } }
+.welcome-media { position: relative; border-radius: 18px; overflow: hidden; box-shadow: var(--shadow-3d); aspect-ratio: 4 / 3; }
+.welcome-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+.welcome-media:hover img { transform: scale(1.04); }
+.welcome-media .wm-badge {
+    position: absolute; left: 18px; bottom: 18px;
+    background: rgba(42,21,51,0.85); color: #fff; border: 1px solid rgba(255,255,255,0.2);
+    padding: 10px 16px; border-radius: 12px; backdrop-filter: blur(4px);
+    font-size: 0.82rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;
+}
+.welcome-media .wm-badge i { color: var(--gold); }
+.welcome-text .eyebrow {
+    display: inline-block; font-size: 0.74rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 12px;
+}
+.welcome-text h2 { color: var(--brand-900); font-weight: 800; margin-bottom: 16px; }
+.welcome-text p { color: #4a4453; line-height: 1.85; margin-bottom: 14px; }
+.welcome-text .welcome-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+
+/* ---- VISIT / GET-IN-TOUCH CTA band -------------------------------------- */
+.visit-cta {
+    position: relative;
+    padding: clamp(50px, 7vw, 96px) clamp(16px, 4vw, 40px);
+    text-align: center; color: #fff; overflow: hidden;
+    background:
+        radial-gradient(circle at 15% 15%, rgba(194,160,90,0.18), transparent 55%),
+        linear-gradient(135deg, #2a1533 0%, #4e2f61 60%, #6a4a80 100%);
+}
+.visit-cta .eyebrow { display: inline-block; font-size: 0.74rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.visit-cta h2 { color: #fff; font-weight: 800; margin-bottom: 14px; }
+.visit-cta p { color: rgba(255,255,255,0.85); max-width: 620px; margin: 0 auto 26px; line-height: 1.7; }
+.visit-cta .hero-cta-group { justify-content: center; }
+.visit-cta .btn-3d { background: var(--gold); color: var(--brand-900) !important; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+.visit-cta .btn-3d:hover { background: var(--gold-soft); }
+
+/* ---- FOOTER polish (global; markup unchanged) --------------------------- */
+footer { padding-top: clamp(50px, 6vw, 76px) !important; }
+footer .container > .row { --bs-gutter-y: 28px; }
+footer h5 {
+    font-size: 0.82rem !important; letter-spacing: 1.4px; margin-bottom: 20px !important;
+    position: relative; padding-bottom: 12px;
+}
+footer h5::after {
+    content: ""; position: absolute; left: 0; bottom: 0; width: 34px; height: 2px;
+    background: var(--gold); border-radius: 2px;
+}
+footer p, footer li { color: rgba(255,255,255,0.72); line-height: 1.8; font-size: 0.92rem; }
+footer a { color: rgba(255,255,255,0.8) !important; }
+footer ul.list-unstyled li { padding: 3px 0; }
+footer a:hover { padding-left: 3px; }
+/* Social links → tidy circular icons when they contain an <i> */
+footer .col-md-3:last-child ul li a {
+    display: inline-flex; align-items: center; gap: 10px;
+}
+footer hr { border-color: rgba(255,255,255,0.12); opacity: 1; }
+footer .text-secondary { color: rgba(255,255,255,0.5) !important; font-size: 0.85rem; }
+@media (min-width: 769px) {
+    footer h5 { display: inline-block; }
+    footer h5::after { left: 0; transform: none; }
+}
+
+/* Section heading tweak: allow a left-aligned eyebrow style variant */
+.heading-lead { text-align: center; max-width: 720px; margin: 0 auto clamp(30px,4vw,48px); }
+.heading-lead .eyebrow { display: inline-block; font-size: 0.74rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.heading-lead h1, .heading-lead h2 { color: var(--brand-900); font-weight: 800; }
