@@ -36,6 +36,18 @@
                     </li>
                     <li class="nav-item"><a class="nav-link" href="#Ministries">Ministries</a></li>
                     <li class="nav-item"><a class="nav-link" href="#Meeting">Meeting Days</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Programs</a>
+                        <ul class="dropdown-menu odbc-dropdown">
+                            <li><a class="dropdown-item" href="programs.html"><i
+                                        class="fas fa-calendar-check me-2"></i>Programs &amp; Events</a></li>
+                            <li><a class="dropdown-item" href="#Projects"><i
+                                        class="fas fa-diagram-project me-2"></i>Upcoming Projects</a></li>
+                            <li><a class="dropdown-item" href="programs.html#Videos"><i
+                                        class="fas fa-play-circle me-2"></i>Launch Videos</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="sermons.html">Sermons</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                 </ul>
@@ -226,6 +238,69 @@
         </div>
     </section>
 
+    <!-- PROGRAMS & EVENTS TEASER -->
+    <section class="section-block teaser-section">
+        <div class="container">
+            <div class="teaser-card tilt-card">
+                <div class="teaser-text">
+                    <h2><i class="fas fa-calendar-star me-2"></i>Programs &amp; Events</h2>
+                    <p>Conventions, conferences, worship nights and special services — each with its speakers, hosts and
+                        banners. Never miss a gathering.</p>
+                    <a href="programs.html" class="btn-3d">Explore Programs <i class="fas fa-arrow-right ms-2"></i></a>
+                </div>
+                <div class="teaser-text">
+                    <h2><i class="fas fa-bell me-2"></i>Stay Connected</h2>
+                    <p>Countdowns to our next services, launch videos for upcoming events, and the projects God is
+                        building through this church — all in one place.</p>
+                    <a href="#Projects" class="btn-3d">See Our Projects <i class="fas fa-arrow-down ms-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         LIVE COUNTDOWN — Next Sunday (auto) + Featured event (editable)
+         EDIT the featured card's data-target to your real event date.
+         ============================================================ -->
+    <section class="countdown-section">
+        <div class="Head-main">
+            <div class="H-M">
+                <h1>Counting Down</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="countdown-grid">
+                <!-- Next Sunday service — AUTO, resets weekly (Sunday 7:00 AM) -->
+                <div class="countdown-card">
+                    <span class="cd-tag">This Week</span>
+                    <h3>Next Sunday Service</h3>
+                    <p class="cd-when"><i class="far fa-clock me-2"></i>Sundays • Miracle Service • 7:00 AM</p>
+                    <div class="countdown" data-next-service="0:07:00">
+                        <div class="count-box"><span class="count-num">--</span><span class="count-label">Days</span></div>
+                        <div class="count-box"><span class="count-num">--</span><span class="count-label">Hours</span></div>
+                        <div class="count-box"><span class="count-num">--</span><span class="count-label">Minutes</span></div>
+                        <div class="count-box"><span class="count-num">--</span><span class="count-label">Seconds</span></div>
+                    </div>
+                    <p class="countdown-live"><span class="dot"></span>Auto-resets every week</p>
+                </div>
+                <!-- Featured event — EDIT data-target (24h, local time) -->
+                <div class="countdown-card">
+                    <span class="cd-tag">Featured Event</span>
+                    <h3>Our Next Major Program</h3>
+                    <p class="cd-when"><i class="far fa-calendar-alt me-2"></i>Date to be announced</p>
+                    <!-- EDIT: set data-target to the event date/time (24h, local), e.g. 2026-12-31T18:00 -->
+                    <div class="countdown" data-target="2026-12-31T18:00" data-ended-text="The program has begun — join us.">
+                        <div class="count-box"><span class="count-num">--</span><span class="count-label">Days</span></div>
+                        <div class="count-box"><span class="count-num">--</span><span class="count-label">Hours</span></div>
+                        <div class="count-box"><span class="count-num">--</span><span class="count-label">Minutes</span></div>
+                        <div class="count-box"><span class="count-num">--</span><span class="count-label">Seconds</span></div>
+                    </div>
+                    <p class="countdown-live"><span class="dot"></span>Live • updates every second</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- MEETINGS -->
     <section class="Meeting" id="Meeting">
         <div class="Head-main">
@@ -266,6 +341,97 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         UPCOMING PROJECTS — placeholder cards with live progress bars
+         Edit titles, briefs, status and data-progress (0–100) freely.
+         ============================================================ -->
+    <section class="section-block projects-section" id="Projects">
+        <div class="Head-main">
+            <div class="H-M">
+                <h1>Upcoming Projects</h1>
+            </div>
+        </div>
+        <!-- Replace titles, briefs, status and data-progress (0–100) with your real projects. -->
+        <p class="section-sub">The vision God is building through Open Door Baptist Church.</p>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card">
+                        <div class="project-icon"><i class="fas fa-church"></i></div>
+                        <span class="project-status fundraising">Fundraising</span>
+                        <h3>New Auditorium</h3>
+                        <p>A permanent, larger home for our growing congregation.</p>
+                        <div class="project-progress">
+                            <div class="pp-top"><span>Progress</span><span>45%</span></div>
+                            <div class="progress-track"><div class="progress-fill" data-progress="45"></div></div>
+                            <p class="project-target"><i class="fas fa-bullseye"></i>Target: to be confirmed</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card">
+                        <div class="project-icon"><i class="fas fa-bus"></i></div>
+                        <span class="project-status progress">In Progress</span>
+                        <h3>Church Bus Fund</h3>
+                        <p>Reliable transport for members, youth and outreach.</p>
+                        <div class="project-progress">
+                            <div class="pp-top"><span>Progress</span><span>70%</span></div>
+                            <div class="progress-track"><div class="progress-fill" data-progress="70"></div></div>
+                            <p class="project-target"><i class="fas fa-bullseye"></i>Target: to be confirmed</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card">
+                        <div class="project-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                        <span class="project-status planning">Planning</span>
+                        <h3>Community Outreach</h3>
+                        <p>Reaching our community with practical help and hope.</p>
+                        <div class="project-progress">
+                            <div class="pp-top"><span>Progress</span><span>20%</span></div>
+                            <div class="progress-track"><div class="progress-fill" data-progress="20"></div></div>
+                            <p class="project-target"><i class="fas fa-bullseye"></i>Target: to be confirmed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         LAUNCH VIDEOS — placeholders. Swap a .video-ph for a real embed:
+         <div class="video-embed"><iframe src="…/embed/VIDEO_ID" allowfullscreen></iframe></div>
+         ============================================================ -->
+    <section class="section-block videos-section" id="Videos">
+        <div class="Head-main">
+            <div class="H-M">
+                <h1>Launch Videos</h1>
+            </div>
+        </div>
+        <!-- Swap a .video-ph for a real embed: <div class="video-embed"><iframe src="…/embed/ID" allowfullscreen></iframe></div> -->
+        <p class="section-sub">Trailers and highlights from our upcoming programs.</p>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="video-ph">
+                        <span class="video-tag">Coming Soon</span>
+                        <span class="play-ring"><i class="fas fa-play"></i></span>
+                        <h4>Event Launch Trailer</h4>
+                        <p>Video coming soon.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="video-ph">
+                        <span class="video-tag">Coming Soon</span>
+                        <span class="play-ring"><i class="fas fa-play"></i></span>
+                        <h4>Ministry Highlight Reel</h4>
+                        <p>Video coming soon.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -367,6 +533,7 @@
                     <ul class="list-unstyled">
                         <li><a href="about.html" class="text-white text-decoration-none">About Us</a></li>
                         <li><a href="index.html#Ministries" class="text-white text-decoration-none">Ministries</a></li>
+                        <li><a href="programs.html" class="text-white text-decoration-none">Programs &amp; Events</a></li>
                         <li><a href="index.html#Meeting" class="text-white text-decoration-none">Meeting Days</a></li>
                         <li><a href="sermons.html" class="text-white text-decoration-none">Sermons</a></li>
                         <li><a href="contact.html" class="text-white text-decoration-none">Contact Us</a></li>

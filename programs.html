@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programs & Events - Open Door Baptist Church</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="site-header sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-dark container">
+            <a class="navbar-brand fw-bold" href="index.html"><img src="images/Logo.jpg"
+                    alt="Open Door Baptist Church Logo" class="navbar-logo"><span><span class="brand-glow">OPEN
+                        DOOR</span> BAPTIST CHURCH</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">About</a>
+                        <ul class="dropdown-menu odbc-dropdown">
+                            <li><a class="dropdown-item" href="about.html"><i class="fas fa-church me-2"></i>About
+                                    Us</a></li>
+                            <li><a class="dropdown-item" href="leadership.html"><i
+                                        class="fas fa-users me-2"></i>Leadership</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#Ministries">Ministries</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#Meeting">Meeting Days</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Programs</a>
+                        <ul class="dropdown-menu odbc-dropdown">
+                            <li><a class="dropdown-item active" href="programs.html"><i
+                                        class="fas fa-calendar-check me-2"></i>Programs &amp; Events</a></li>
+                            <li><a class="dropdown-item" href="index.html#Projects"><i
+                                        class="fas fa-diagram-project me-2"></i>Upcoming Projects</a></li>
+                            <li><a class="dropdown-item" href="#Videos"><i
+                                        class="fas fa-play-circle me-2"></i>Launch Videos</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="sermons.html">Sermons</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero-banner">
+        <div class="overlay"></div>
+        <div class="caption">
+            <h1>Programs &amp; Events</h1>
+            <p>Come and encounter God with us — services, conventions, and special gatherings.</p>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         COUNTDOWN — Featured event (editable) + Next Sunday (auto)
+         EDIT: change data-target below to your real event date/time.
+         ============================================================ -->
+    <section class="countdown-section">
+        <div class="Head-main">
+            <div class="H-M">
+                <h1>Counting Down</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="countdown-grid">
+
+                <!-- Featured event — EDIT data-target to your event's date/time (24h, local) -->
+                <div class="countdown-card">
+                    <span class="cd-tag">Featured Event</span>
+                    <h3>Our Next Major Program</h3>
+                    <p class="cd-when"><i class="far fa-calendar-alt me-2"></i>Date to be announced</p>
+                    <!-- EDIT: set data-target to the event date/time (24h, local), e.g. 2026-12-31T18:00 -->
+                    <div class="countdown" data-target="2026-12-31T18:00" data-ended-text="The program has begun — join us.">
+                        <div class="count-box"><span class="count-num">--</span><span class="count-label">Days</span></div>
+                        <div class="count-box"><span class="count-num">--</span><span class="count-label">Hours</span></div>
+                        <div class="count-box"><span class="count-num">--</span><span class="count-label">Minutes</span></div>
+                        <div class="count-box"><span class="count-num">--</span><span class="count-label">Seconds</span></div>
+                    </div>
+                    <p class="countdown-live"><span class="dot"></span>Live countdown • updates every second</p>
+                </div>
+
+                <!-- Next Sunday service — AUTO, resets each week (Sunday 7:00 AM) -->
+                <div class="countdown-card">
+                    <span class="cd-tag">This Week</span>
+                    <h3>Next Sunday Service</h3>
+                    <p class="cd-when"><i class="far fa-clock me-2"></i>Sundays • Miracle Service • 7:00 AM</p>
+                    <div class="countdown" data-next-service="0:07:00">
+                        <div class="count-box"><span class="count-num">--</span><span class="count-label">Days</span></div>
+                        <div class="count-box"><span class="count-num">--</span><span class="count-label">Hours</span></div>
+                        <div class="count-box"><span class="count-num">--</span><span class="count-label">Minutes</span></div>
+                        <div class="count-box"><span class="count-num">--</span><span class="count-label">Seconds</span></div>
+                    </div>
+                    <p class="countdown-live"><span class="dot"></span>Auto-resets every week</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         PROGRAM BANNERS — Current + Upcoming
+         Replace the <img> src with your real banner art, or leave a
+         dashed slot as a placeholder until a banner is ready.
+         ============================================================ -->
+    <section class="section-block programs-section">
+        <div class="Head-main">
+            <div class="H-M">
+                <h1>Program Banners</h1>
+            </div>
+        </div>
+        <p class="section-sub">What's happening now, and what's coming next.</p>
+        <div class="container">
+            <div class="banner-strip two">
+                <!-- CURRENT banner — replace the image (16:9) and text with your active promo -->
+                <div class="program-banner">
+                    <img src="images/Church-Background.jpg" alt="Featured program banner">
+                    <div class="pb-content">
+                        <span class="pb-tag">Featured</span>
+                        <h3>Featured Program</h3>
+                        <p>Your current program banner and tagline.</p>
+                    </div>
+                </div>
+                <!-- UPCOMING banner slot — drop a 16:9 promo image here -->
+                <div class="banner-slot">
+                    <i class="fas fa-image"></i>
+                    <h4>Upcoming Banner</h4>
+                    <p>Add a promo image for the next event (16:9).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         PROGRAMS / EVENTS — each with banner, brief, date & speakers
+         All names, briefs, dates and photos below are PLACEHOLDERS.
+         ============================================================ -->
+    <section class="section-block programs-section" id="Programs" style="padding-top:0;">
+        <div class="Head-main">
+            <div class="H-M">
+                <h1>Our Programs &amp; Services</h1>
+            </div>
+        </div>
+        <!-- Each card is a template: replace banner, date, brief, speakers & host with your real details. -->
+        <p class="section-sub">The gatherings where our church family comes together to worship, grow and serve.</p>
+        <div class="container">
+            <div class="row g-4">
+
+                <!-- PROGRAM 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="program-card">
+                        <div class="program-banner-img">
+                            <span class="program-badge weekly">Weekly</span>
+                            <img src="images/pngtree-a-white-catholic-church-on-a-summer-day-with-dark-clouds-image_15680672.jpg"
+                                alt="Program banner placeholder">
+                        </div>
+                        <div class="program-body">
+                            <h3>Sunday Miracle Service</h3>
+                            <div class="program-meta">
+                                <span><i class="far fa-calendar"></i>Every Sunday</span>
+                                <span><i class="far fa-clock"></i>7:00 AM &amp; 10:00 AM</span>
+                            </div>
+                            <p>Our main weekly gathering for worship, the Word and prayer.</p>
+                            <div class="speaker-heading">Speaker &amp; Host</div>
+                            <div class="speaker-row">
+                                <!-- Replace the placeholder avatar with: <img class="speaker-avatar" src="images/photo.jpg" alt="Name"> -->
+                                <div class="speaker-chip">
+                                    <span class="speaker-avatar placeholder"><i class="fas fa-user"></i></span>
+                                    <div class="speaker-info">
+                                        <h5>To Be Announced</h5>
+                                        <span class="speaker-role">Preacher</span>
+                                        <p>Add a short line about the preacher.</p>
+                                    </div>
+                                </div>
+                                <div class="speaker-chip">
+                                    <span class="speaker-avatar placeholder"><i class="fas fa-microphone"></i></span>
+                                    <div class="speaker-info">
+                                        <h5>To Be Announced</h5>
+                                        <span class="speaker-role">Host</span>
+                                        <p>Add a short line about the host.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROGRAM 2 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="program-card">
+                        <div class="program-banner-img">
+                            <span class="program-badge upcoming">Upcoming</span>
+                            <img src="images/HD-wallpaper-christian-youth-youth-group.jpg"
+                                alt="Program banner placeholder">
+                        </div>
+                        <div class="program-body">
+                            <h3>Youth Conference</h3>
+                            <div class="program-meta">
+                                <span><i class="far fa-calendar"></i>Date to be confirmed</span>
+                                <span><i class="fas fa-location-dot"></i>Main Auditorium</span>
+                            </div>
+                            <p>A gathering to inspire, equip and connect our young people.</p>
+                            <div class="speaker-heading">Speaker &amp; Host</div>
+                            <div class="speaker-row">
+                                <div class="speaker-chip">
+                                    <span class="speaker-avatar placeholder"><i class="fas fa-user"></i></span>
+                                    <div class="speaker-info">
+                                        <h5>To Be Announced</h5>
+                                        <span class="speaker-role">Guest Minister</span>
+                                        <p>Add a short line about the speaker.</p>
+                                    </div>
+                                </div>
+                                <div class="speaker-chip">
+                                    <span class="speaker-avatar placeholder"><i class="fas fa-microphone"></i></span>
+                                    <div class="speaker-info">
+                                        <h5>To Be Announced</h5>
+                                        <span class="speaker-role">Host</span>
+                                        <p>Add a short line about the host.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROGRAM 3 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="program-card">
+                        <div class="program-banner-img">
+                            <span class="program-badge upcoming">Upcoming</span>
+                            <img src="images/colorful-christian-cross-with-music-notes.jpg"
+                                alt="Program banner placeholder">
+                        </div>
+                        <div class="program-body">
+                            <h3>Praise &amp; Worship Night</h3>
+                            <div class="program-meta">
+                                <span><i class="far fa-calendar"></i>Date to be confirmed</span>
+                                <span><i class="far fa-clock"></i>Time to be confirmed</span>
+                            </div>
+                            <p>An evening set apart for worship, thanksgiving and God's presence.</p>
+                            <div class="speaker-heading">Worship Leader &amp; Host</div>
+                            <div class="speaker-row">
+                                <div class="speaker-chip">
+                                    <span class="speaker-avatar placeholder"><i class="fas fa-music"></i></span>
+                                    <div class="speaker-info">
+                                        <h5>To Be Announced</h5>
+                                        <span class="speaker-role">Worship Leader</span>
+                                        <p>Add a short line about the worship leader.</p>
+                                    </div>
+                                </div>
+                                <div class="speaker-chip">
+                                    <span class="speaker-avatar placeholder"><i class="fas fa-microphone"></i></span>
+                                    <div class="speaker-info">
+                                        <h5>To Be Announced</h5>
+                                        <span class="speaker-role">Host</span>
+                                        <p>Add a short line about the host.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADD-A-PROGRAM placeholder card -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="banner-slot" style="min-height:100%;">
+                        <i class="fas fa-plus-circle"></i>
+                        <h4>Add a Program</h4>
+                        <p>Duplicate a card and fill in your event details.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         LAUNCH VIDEOS — placeholders for trailers / launch reels
+         Swap a .video-ph block for a real embed like:
+         <div class="video-embed"><iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe></div>
+         ============================================================ -->
+    <section class="section-block videos-section" id="Videos">
+        <div class="Head-main">
+            <div class="H-M">
+                <h1>Launch Videos</h1>
+            </div>
+        </div>
+        <!-- Swap a .video-ph for a real embed: <div class="video-embed"><iframe src="…/embed/ID" allowfullscreen></iframe></div> -->
+        <p class="section-sub">Trailers and highlights from our programs.</p>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="video-ph">
+                        <span class="video-tag">Coming Soon</span>
+                        <span class="play-ring"><i class="fas fa-play"></i></span>
+                        <h4>Event Launch Trailer</h4>
+                        <p>Video coming soon.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="video-ph">
+                        <span class="video-tag">Coming Soon</span>
+                        <span class="play-ring"><i class="fas fa-play"></i></span>
+                        <h4>Ministry Highlight Reel</h4>
+                        <p>Video coming soon.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-white pt-5 pb-4">
+        <div class="container">
+            <div class="row text-md-left">
+                <div class="col-md-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold text-info">About the Church</h5>
+                    <p>Welcome to Open Door Baptist Church; a place of refreshing change. A place where sickness cannot
+                        thrive. A place where members are accident-free. This is Jesus Christ's Church!</p>
+                </div>
+                <div class="col-md-2 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold text-info">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="about.html" class="text-white text-decoration-none">About Us</a></li>
+                        <li><a href="index.html#Ministries" class="text-white text-decoration-none">Ministries</a></li>
+                        <li><a href="programs.html" class="text-white text-decoration-none">Programs &amp; Events</a></li>
+                        <li><a href="index.html#Meeting" class="text-white text-decoration-none">Meeting Days</a></li>
+                        <li><a href="sermons.html" class="text-white text-decoration-none">Sermons</a></li>
+                        <li><a href="contact.html" class="text-white text-decoration-none">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold text-info">Our Address</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="https://www.google.com/maps/place/MCRR+62C,+Kumasi" target="_blank"
+                                class="text-white text-decoration-none">Kumasi, Ghana</a></li>
+                        <li><a href="mailto:opendoorbaptistch@gmail.com"
+                                class="text-white text-decoration-none">opendoorbaptistch@gmail.com</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold text-info">Connect</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="https://web.facebook.com/ODBCKentinkronoKumasiGhana"
+                                class="text-white text-decoration-none"><i class="fab fa-facebook me-2"></i>Facebook</a>
+                        </li>
+                        <li><a href="https://www.instagram.com/opendoorbaptistchurchgh/"
+                                class="text-white text-decoration-none"><i
+                                    class="fab fa-instagram me-2"></i>Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mb-4 mt-4">
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <p class="mb-0 text-secondary">&copy; 2026 Open Door Baptist Church</p>
+                    <p class="mb-0 text-secondary">Delivered &amp; Developed by Code Dev Keys</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- DONATION FLOATING BUTTON -->
+    <button class="donate-fab" data-bs-toggle="modal" data-bs-target="#donateModal" aria-label="Donate">
+        <i class="fas fa-hand-holding-heart"></i>
+        <span>Donate</span>
+    </button>
+
+    <!-- DONATION MODAL -->
+    <div class="modal fade" id="donateModal" tabindex="-1" aria-labelledby="donateModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content donate-modal-content">
+                <div class="modal-header donate-modal-header">
+                    <h4 class="modal-title" id="donateModalLabel"><i class="fas fa-hand-holding-usd me-2"></i>Support
+                        The Ministry</h4>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="text-center text-muted mb-4">"Each of you should give what you have decided in your heart
+                        to give, not reluctantly or under compulsion, for God loves a cheerful giver." — 2 Corinthians
+                        9:7</p>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="donate-card">
+                                <div class="donate-icon momo-icon"><i class="fas fa-mobile-alt"></i></div>
+                                <h5>Mobile Money (MoMo)</h5>
+                                <p class="donate-detail"><strong>Number:</strong> <span id="momoNumber">0555181331</span></p>
+                                <p class="donate-detail"><strong>Name:</strong> Open Door Baptist Church</p>
+                                <p class="donate-detail"><strong>Network:</strong> MTN MoMo</p>
+                                <button class="copy-btn" data-copy="momoNumber"><i class="fas fa-copy me-2"></i>Copy
+                                    Number</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="donate-card">
+                                <div class="donate-icon bank-icon"><i class="fas fa-university"></i></div>
+                                <h5>Bank Transfer</h5>
+                                <p class="donate-detail"><strong>Bank:</strong> [Bank Name]</p>
+                                <p class="donate-detail"><strong>Account Name:</strong> Open Door Baptist Church</p>
+                                <p class="donate-detail"><strong>Account No:</strong> <span
+                                        id="bankAccount">XXXX-XXXX-XXXX</span></p>
+                                <button class="copy-btn" data-copy="bankAccount"><i class="fas fa-copy me-2"></i>Copy
+                                    Account</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <p class="small text-muted mb-0"><i class="fas fa-shield-alt me-1"></i>Thank you for partnering
+                            with us. May God bless your generosity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
