@@ -1,535 +1,667 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sermons - Open Door Baptist Church</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-<style>
-    .sermon-filters {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
-        margin-bottom: 40px;
-    }
-    .filter-btn {
-        padding: 10px 22px;
-        background: #fff;
-        color: var(--primary-dark);
-        border: 2px solid var(--primary);
-        border-radius: 50px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    }
-    .filter-btn:hover, .filter-btn.active {
-        background: linear-gradient(145deg, var(--primary), var(--primary-dark));
-        color: #fff;
-        transform: translateY(-3px);
-        box-shadow: 0 8px 18px rgba(142,36,170,0.4);
-    }
-    .sermon-item { transition: opacity 0.4s ease, transform 0.4s ease; }
-    .sermon-item.hidden { display: none; }
-    .sermon-meta {
-        display: flex;
-        gap: 14px;
-        font-size: 0.85rem;
-        color: #777;
-        margin-bottom: 8px;
-        flex-wrap: wrap;
-    }
-    .sermon-meta span i { color: var(--primary); margin-right: 4px; }
-    .sermon-tag {
-        display: inline-block;
-        padding: 4px 12px;
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        color: #fff;
-        border-radius: 20px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 10px;
-    }
-    .featured-sermon {
-        background: linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 100%);
-        color: #fff;
-        border-radius: 20px;
-        padding: 40px;
-        box-shadow: var(--shadow-3d);
-        margin-bottom: 50px;
-        position: relative;
-        overflow: hidden;
-    }
-    .featured-sermon::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at top right, rgba(236,64,122,0.3), transparent 60%);
-    }
-    .featured-sermon > * { position: relative; z-index: 1; }
-    .featured-sermon h2 { color: #fff; margin-bottom: 14px; }
-    .featured-sermon .featured-label {
-        display: inline-block;
-        padding: 6px 16px;
-        background: linear-gradient(135deg, var(--accent), var(--accent-2));
-        color: var(--dark);
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 18px;
-    }
-    .newsletter-cta {
-        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-        color: #fff;
-        border-radius: 20px;
-        padding: 50px 40px;
-        text-align: center;
-        box-shadow: var(--shadow-3d);
-        margin-top: 50px;
-    }
-    .newsletter-cta h3 { color: #fff; margin-bottom: 14px; }
-    .newsletter-cta p { opacity: 0.9; margin-bottom: 25px; }
-    .newsletter-form {
-        max-width: 500px;
-        margin: 0 auto;
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-    }
-    .newsletter-form input {
-        flex: 1;
-        min-width: 220px;
-        padding: 14px 18px;
-        border: none;
-        border-radius: 50px;
-        font-size: 1rem;
-    }
-    .newsletter-form button {
-        padding: 14px 30px;
-        background: linear-gradient(135deg, var(--accent), var(--accent-2));
-        color: var(--dark);
-        border: none;
-        border-radius: 50px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: 0.3s;
-        box-shadow: 0 5px 0 #c79100, 0 10px 20px rgba(0,0,0,0.2);
-    }
-    .newsletter-form button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 0 #c79100, 0 14px 28px rgba(0,0,0,0.25);
-    }
-    .featured-thumb-link, .sermon-thumb-link { display: block; text-decoration: none; }
-    .featured-thumb, .sermon-thumb {
-        position: relative;
-        border-radius: 14px;
-        overflow: hidden;
-        aspect-ratio: 16 / 9;
-        background: #000;
-    }
-    .featured-thumb img, .sermon-thumb img {
-        width: 100%; height: 100%; object-fit: cover;
-        transition: transform 0.6s ease;
-    }
-    .featured-thumb:hover img, .sermon-thumb:hover img { transform: scale(1.06); }
-    .featured-thumb::after, .sermon-thumb::after {
-        content: ""; position: absolute; inset: 0;
-        background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 100%);
-    }
-    .play-icon {
-        position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-        width: 70px; height: 70px;
-        display: inline-flex; align-items: center; justify-content: center;
-        background: linear-gradient(135deg, #ec407a, #8e24aa);
-        border-radius: 50%;
-        color: #fff;
-        font-size: 1.5rem;
-        z-index: 1;
-        box-shadow: 0 8px 24px rgba(236,64,122,0.5);
-        transition: transform 0.3s ease;
-    }
-    .featured-thumb:hover .play-icon, .sermon-thumb:hover .play-icon { transform: translate(-50%, -50%) scale(1.12); }
-    .sermon-thumb .play-icon { width: 56px; height: 56px; font-size: 1.2rem; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sermons - Open Door Baptist Church</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .sermon-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            padding: 10px 22px;
+            background: #fff;
+            color: var(--primary-dark);
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(145deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(142, 36, 170, 0.4);
+        }
+
+        .sermon-item {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .sermon-item.hidden {
+            display: none;
+        }
+
+        .sermon-meta {
+            display: flex;
+            gap: 14px;
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .sermon-meta span i {
+            color: var(--primary);
+            margin-right: 4px;
+        }
+
+        .sermon-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .featured-sermon {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 100%);
+            color: #fff;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow-3d);
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-sermon::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(236, 64, 122, 0.3), transparent 60%);
+        }
+
+        .featured-sermon>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .featured-sermon h2 {
+            color: #fff;
+            margin-bottom: 14px;
+        }
+
+        .featured-sermon .featured-label {
+            display: inline-block;
+            padding: 6px 16px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: var(--dark);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
+
+        .newsletter-cta {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: var(--shadow-3d);
+            margin-top: 50px;
+        }
+
+        .newsletter-cta h3 {
+            color: #fff;
+            margin-bottom: 14px;
+        }
+
+        .newsletter-cta p {
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            min-width: 220px;
+            padding: 14px 18px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 14px 30px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: var(--dark);
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 0 #c79100, 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .newsletter-form button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 0 #c79100, 0 14px 28px rgba(0, 0, 0, 0.25);
+        }
+
+        .featured-thumb-link,
+        .sermon-thumb-link {
+            display: block;
+            text-decoration: none;
+        }
+
+        .featured-thumb,
+        .sermon-thumb {
+            position: relative;
+            border-radius: 14px;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            background: #000;
+        }
+
+        .featured-thumb img,
+        .sermon-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .featured-thumb:hover img,
+        .sermon-thumb:hover img {
+            transform: scale(1.06);
+        }
+
+        .featured-thumb::after,
+        .sermon-thumb::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.55) 100%);
+        }
+
+        .play-icon {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ec407a, #8e24aa);
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.5rem;
+            z-index: 1;
+            box-shadow: 0 8px 24px rgba(236, 64, 122, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .featured-thumb:hover .play-icon,
+        .sermon-thumb:hover .play-icon {
+            transform: translate(-50%, -50%) scale(1.12);
+        }
+
+        .sermon-thumb .play-icon {
+            width: 56px;
+            height: 56px;
+            font-size: 1.2rem;
+        }
+    </style>
 </head>
+
 <body>
 
-<header class="site-header sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-dark container">
-        <a class="navbar-brand fw-bold" href="index.html"><img src="images/Logo.jpg" alt="Open Door Baptist Church Logo" class="navbar-logo"><span><span class="brand-glow">OPEN DOOR</span> BAPTIST CHURCH</span></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
-                    <ul class="dropdown-menu odbc-dropdown">
-                        <li><a class="dropdown-item" href="about.html"><i class="fas fa-church me-2"></i>About Us</a></li>
-                        <li><a class="dropdown-item" href="leadership.html"><i class="fas fa-users me-2"></i>Leadership</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="index.html#Ministries">Ministries</a></li>
-                <li class="nav-item"><a class="nav-link" href="index.html#Meeting">Meeting Days</a></li>
-                <li class="nav-item"><a class="nav-link active" href="sermons.html">Sermons</a></li>
-                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-            </ul>
+    <header class="site-header sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-dark container">
+            <a class="navbar-brand fw-bold" href="index.html"><img src="images/Logo.jpg"
+                    alt="Open Door Baptist Church Logo" class="navbar-logo"><span><span class="brand-glow">OPEN
+                        DOOR</span> BAPTIST CHURCH</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">About</a>
+                        <ul class="dropdown-menu odbc-dropdown">
+                            <li><a class="dropdown-item" href="about.html"><i class="fas fa-church me-2"></i>About
+                                    Us</a></li>
+                            <li><a class="dropdown-item" href="leadership.html"><i
+                                        class="fas fa-users me-2"></i>Leadership</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#Ministries">Ministries</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html#Meeting">Meeting Days</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="sermons.html">Sermons</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero-banner">
+        <div class="overlay"></div>
+        <div class="caption">
+            <h1>Sermons & Messages</h1>
+            <p>Be encouraged, equipped, and inspired by the Word of God</p>
         </div>
-    </nav>
-</header>
+    </section>
 
-<section class="hero-banner">
-    <div class="overlay"></div>
-    <div class="caption">
-        <h1>Sermons & Messages</h1>
-        <p>Be encouraged, equipped, and inspired by the Word of God</p>
-    </div>
-</section>
+    <section class="content-section">
+        <div class="container">
 
-<section class="content-section">
-    <div class="container">
-
-        <!-- FEATURED SERMON -->
-        <div class="featured-sermon">
-            <span class="featured-label"><i class="fas fa-star me-1"></i> Featured This Week</span>
-            <div class="row align-items-center g-4">
-                <div class="col-lg-7">
-                    <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank" rel="noopener" class="featured-thumb-link">
-                        <div class="featured-thumb">
-                            <img src="images/pngtree-a-white-catholic-church-on-a-summer-day-with-dark-clouds-image_15680672.jpg" alt="The Power of Prayer">
-                            <span class="play-icon"><i class="fas fa-play"></i></span>
+            <!-- FEATURED SERMON -->
+            <div class="featured-sermon">
+                <span class="featured-label"><i class="fas fa-star me-1"></i> Featured This Week</span>
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-7">
+                        <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank"
+                            rel="noopener" class="featured-thumb-link">
+                            <div class="featured-thumb">
+                                <img src="images/pngtree-a-white-catholic-church-on-a-summer-day-with-dark-clouds-image_15680672.jpg"
+                                    alt="The Power of Prayer">
+                                <span class="play-icon"><i class="fas fa-play"></i></span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-5">
+                        <h2>The Power of Prayer</h2>
+                        <div class="sermon-meta" style="color:rgba(255,255,255,0.75);">
+                            <span><i class="fas fa-user"></i>Pastor Kofi Asumadu</span>
+                            <span><i class="fas fa-calendar"></i>This Sunday</span>
                         </div>
-                    </a>
+                        <p style="opacity:0.9;line-height:1.7;">Discover how a life of prayer unlocks the supernatural
+                            and transforms every area of your walk with God. A timely word for every believer.</p>
+                        <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank"
+                            rel="noopener" class="btn-3d mt-3"><i class="fab fa-facebook me-2"></i>Watch on Facebook</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HEADING -->
+            <div class="Head-main">
+                <div class="H-M">
+                    <h1>All Sermons — Recent to Past</h1>
+                </div>
+            </div>
+            <p class="text-center text-muted mb-4"><i class="fas fa-sync-alt me-1"></i> Auto-updated live from our
+                Facebook page. New sermons appear here as soon as they're posted.</p>
+
+            <!-- LIVE FACEBOOK SERMONS FEED — auto-pulls every video posted on the church's FB page -->
+            <div class="row g-4 mb-5">
+                <div class="col-lg-7">
+                    <div class="fb-feed-wrap tilt-card">
+                        <h4 class="mb-3"><i class="fab fa-square-facebook text-primary"></i> Latest Sermon Videos</h4>
+                        <div class="fb-page" data-href="https://www.facebook.com/ODBCKentinkronoKumasiGhana"
+                            data-tabs="timeline" data-small-header="false" data-adapt-container-width="true"
+                            data-hide-cover="false" data-show-facepile="true">
+                            <blockquote cite="https://www.facebook.com/ODBCKentinkronoKumasiGhana"
+                                class="fb-xfbml-parse-ignore">
+                                <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana">Open Door Baptist Church
+                                    on Facebook</a>
+                            </blockquote>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-5">
-                    <h2>The Power of Prayer</h2>
-                    <div class="sermon-meta" style="color:rgba(255,255,255,0.75);">
-                        <span><i class="fas fa-user"></i>Pastor Kofi Asumadu</span>
-                        <span><i class="fas fa-calendar"></i>This Sunday</span>
+                    <div class="fb-feed-wrap tilt-card mb-4">
+                        <h4 class="mb-3"><i class="fas fa-broadcast-tower text-danger"></i> Live & Recent Posts</h4>
+                        <iframe class="fb-videos-frame"
+                            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FODBCKentinkronoKumasiGhana&tabs=timeline&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false"
+                            style="border:none;overflow:hidden;border-radius:12px;" scrolling="no" frameborder="0"
+                            allowfullscreen
+                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                     </div>
-                    <p style="opacity:0.9;line-height:1.7;">Discover how a life of prayer unlocks the supernatural and transforms every area of your walk with God. A timely word for every believer.</p>
-                    <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank" rel="noopener" class="btn-3d mt-3"><i class="fab fa-facebook me-2"></i>Watch on Facebook</a>
+                    <div class="text-center">
+                        <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank"
+                            rel="noopener" class="btn-3d w-100"><i class="fab fa-facebook me-2"></i>Browse All On
+                            Facebook</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HIGHLIGHT TAGS -->
+            <div class="Head-main">
+                <div class="H-M">
+                    <h1>Browse By Topic</h1>
+                </div>
+            </div>
+
+            <!-- FILTER BUTTONS (manual highlights) -->
+            <div class="sermon-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="prayer">Prayer</button>
+                <button class="filter-btn" data-filter="faith">Faith</button>
+                <button class="filter-btn" data-filter="worship">Worship</button>
+                <button class="filter-btn" data-filter="discipleship">Discipleship</button>
+            </div>
+
+            <!-- SERMON GRID — curated highlights -->
+            <div class="row g-4" id="sermonGrid">
+
+                <div class="col-md-6 col-lg-4 sermon-item" data-category="prayer">
+                    <div class="sermon-card tilt-card h-100">
+                        <div class="card border-0 h-100">
+                            <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank"
+                                rel="noopener" class="sermon-thumb-link">
+                                <div class="sermon-thumb">
+                                    <img src="images/pngtree-a-white-catholic-church-on-a-summer-day-with-dark-clouds-image_15680672.jpg"
+                                        alt="The Power of Prayer">
+                                    <span class="play-icon"><i class="fas fa-play"></i></span>
+                                </div>
+                            </a>
+                            <div class="card-body">
+                                <span class="sermon-tag">Prayer</span>
+                                <h5 class="card-title">The Power of Prayer</h5>
+                                <div class="sermon-meta">
+                                    <span><i class="fas fa-user"></i>Pastor Kofi Asumadu</span>
+                                    <span><i class="fas fa-calendar"></i>July 1, 2025</span>
+                                </div>
+                                <p class="card-text">A soul-lifting sermon on how prayer brings transformation in every
+                                    season of life.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 sermon-item" data-category="faith">
+                    <div class="sermon-card tilt-card h-100">
+                        <div class="card border-0 h-100">
+                            <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank"
+                                rel="noopener" class="sermon-thumb-link">
+                                <div class="sermon-thumb">
+                                    <img src="images/empty-christian-church-building_23-2151103910.jpg"
+                                        alt="Faith Over Fear">
+                                    <span class="play-icon"><i class="fas fa-play"></i></span>
+                                </div>
+                            </a>
+                            <div class="card-body">
+                                <span class="sermon-tag">Faith</span>
+                                <h5 class="card-title">Faith Over Fear</h5>
+                                <div class="sermon-meta">
+                                    <span><i class="fas fa-user"></i>Rev. John</span>
+                                    <span><i class="fas fa-calendar"></i>June 28, 2025</span>
+                                </div>
+                                <p class="card-text">Overcoming fear and trusting God's promises fully — even when you
+                                    can't see the way.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 sermon-item" data-category="worship">
+                    <div class="sermon-card tilt-card h-100">
+                        <div class="card border-0 h-100">
+                            <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank"
+                                rel="noopener" class="sermon-thumb-link">
+                                <div class="sermon-thumb">
+                                    <img src="images/colorful-christian-cross-with-music-notes.jpg"
+                                        alt="A Heart of Worship">
+                                    <span class="play-icon"><i class="fas fa-play"></i></span>
+                                </div>
+                            </a>
+                            <div class="card-body">
+                                <span class="sermon-tag">Worship</span>
+                                <h5 class="card-title">A Heart of Worship</h5>
+                                <div class="sermon-meta">
+                                    <span><i class="fas fa-user"></i>Pastor Kofi Asumadu</span>
+                                    <span><i class="fas fa-calendar"></i>June 22, 2025</span>
+                                </div>
+                                <p class="card-text">Worship is more than a song — it's a lifestyle of surrender.
+                                    Discover what it means to truly worship in spirit and truth.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 sermon-item" data-category="discipleship">
+                    <div class="sermon-card tilt-card h-100">
+                        <div class="card border-0 h-100">
+                            <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank"
+                                rel="noopener" class="sermon-thumb-link">
+                                <div class="sermon-thumb">
+                                    <img src="images/bible-reading-book-or-hands-of-family-in-prayer-support-or-hope-in-christianity-home-for.jpg"
+                                        alt="Walking In His Footsteps">
+                                    <span class="play-icon"><i class="fas fa-play"></i></span>
+                                </div>
+                            </a>
+                            <div class="card-body">
+                                <span class="sermon-tag">Discipleship</span>
+                                <h5 class="card-title">Walking In His Footsteps</h5>
+                                <div class="sermon-meta">
+                                    <span><i class="fas fa-user"></i>Deacon Badu</span>
+                                    <span><i class="fas fa-calendar"></i>June 15, 2025</span>
+                                </div>
+                                <p class="card-text">Becoming a true disciple of Christ in a world that constantly pulls
+                                    us in every direction.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 sermon-item" data-category="prayer">
+                    <div class="sermon-card tilt-card h-100">
+                        <div class="card border-0 h-100">
+                            <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank"
+                                rel="noopener" class="sermon-thumb-link">
+                                <div class="sermon-thumb">
+                                    <img src="images/vertical-shot-church-with-blue-cloudy-sky-background_181624-9309.jpg"
+                                        alt="Breakthrough Prayer">
+                                    <span class="play-icon"><i class="fas fa-play"></i></span>
+                                </div>
+                            </a>
+                            <div class="card-body">
+                                <span class="sermon-tag">Prayer</span>
+                                <h5 class="card-title">Breakthrough Prayer</h5>
+                                <div class="sermon-meta">
+                                    <span><i class="fas fa-user"></i>Evangelist Mike K.</span>
+                                    <span><i class="fas fa-calendar"></i>June 8, 2025</span>
+                                </div>
+                                <p class="card-text">When heaven feels silent, persistent prayer breaks every chain.
+                                    Learn how to pray until you break through.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 sermon-item" data-category="faith">
+                    <div class="sermon-card tilt-card h-100">
+                        <div class="card border-0 h-100">
+                            <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank"
+                                rel="noopener" class="sermon-thumb-link">
+                                <div class="sermon-thumb">
+                                    <img src="images/Church-Background.jpg" alt="Mountain-Moving Faith">
+                                    <span class="play-icon"><i class="fas fa-play"></i></span>
+                                </div>
+                            </a>
+                            <div class="card-body">
+                                <span class="sermon-tag">Faith</span>
+                                <h5 class="card-title">Mountain-Moving Faith</h5>
+                                <div class="sermon-meta">
+                                    <span><i class="fas fa-user"></i>Pastor Kofi Asumadu</span>
+                                    <span><i class="fas fa-calendar"></i>June 1, 2025</span>
+                                </div>
+                                <p class="card-text">Even faith the size of a mustard seed can move mountains. A
+                                    powerful word on activating your faith.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- NEWSLETTER -->
+            <div class="newsletter-cta">
+                <h3><i class="fas fa-envelope-open-text me-2"></i>Never Miss A Sermon</h3>
+                <p>Subscribe to get weekly sermons and devotionals delivered straight to your inbox.</p>
+                <form class="newsletter-form ajax-form">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit"><i class="fas fa-paper-plane me-2"></i>Subscribe</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="text-white pt-5 pb-4">
+        <div class="container">
+            <div class="row text-md-left">
+                <div class="col-md-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold text-info">About the Church</h5>
+                    <p>Welcome to Open Door Baptist Church; a place of refreshing change. A place where sickness cannot
+                        thrive. A place where members are accident-free. This is Jesus Christ's Church!</p>
+                </div>
+                <div class="col-md-2 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold text-info">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="about.html" class="text-white text-decoration-none">About Us</a></li>
+                        <li><a href="index.html#Ministries" class="text-white text-decoration-none">Ministries</a></li>
+                        <li><a href="index.html#Meeting" class="text-white text-decoration-none">Meeting Days</a></li>
+                        <li><a href="sermons.html" class="text-white text-decoration-none">Sermons</a></li>
+                        <li><a href="contact.html" class="text-white text-decoration-none">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold text-info">Our Address</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="https://www.google.com/maps/place/MCRR+62C,+Kumasi" target="_blank"
+                                class="text-white text-decoration-none">Kumasi, Ghana</a></li>
+                        <li><a href="mailto:opendoorbaptistch@gmail.com"
+                                class="text-white text-decoration-none">opendoorbaptistch@gmail.com</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold text-info">Connect</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana"
+                                class="text-white text-decoration-none"><i class="fab fa-facebook me-2"></i>Facebook</a>
+                        </li>
+                        <li><a href="https://www.instagram.com/opendoorbaptistchurchgh/"
+                                class="text-white text-decoration-none"><i
+                                    class="fab fa-instagram me-2"></i>Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mb-4 mt-4">
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <p class="mb-0 text-secondary">&copy; 2026 Open Door Baptist Church</p>
+                    <p class="mb-0 text-secondary">Delivered & Developed by Code Dev Keys</p>
                 </div>
             </div>
         </div>
+    </footer>
 
-        <!-- HEADING -->
-        <div class="Head-main"><div class="H-M"><h1>All Sermons — Recent to Past</h1></div></div>
-        <p class="text-center text-muted mb-4"><i class="fas fa-sync-alt me-1"></i> Auto-updated live from our Facebook page. New sermons appear here as soon as they're posted.</p>
+    <!-- DONATION FLOATING BUTTON -->
+    <button class="donate-fab" data-bs-toggle="modal" data-bs-target="#donateModal" aria-label="Donate">
+        <i class="fas fa-hand-holding-heart"></i>
+        <span>Donate</span>
+    </button>
 
-        <!-- LIVE FACEBOOK SERMONS FEED — auto-pulls every video posted on the church's FB page -->
-        <div class="row g-4 mb-5">
-            <div class="col-lg-7">
-                <div class="fb-feed-wrap tilt-card">
-                    <h4 class="mb-3"><i class="fab fa-square-facebook text-primary"></i> Latest Sermon Videos</h4>
-                    <div class="fb-page"
-                        data-href="https://www.facebook.com/ODBCKentinkronoKumasiGhana"
-                        data-tabs="timeline"
-                        data-small-header="false"
-                        data-adapt-container-width="true"
-                        data-hide-cover="false"
-                        data-show-facepile="true">
-                        <blockquote cite="https://www.facebook.com/ODBCKentinkronoKumasiGhana" class="fb-xfbml-parse-ignore">
-                            <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana">Open Door Baptist Church on Facebook</a>
-                        </blockquote>
+    <!-- DONATION MODAL -->
+    <div class="modal fade" id="donateModal" tabindex="-1" aria-labelledby="donateModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content donate-modal-content">
+                <div class="modal-header donate-modal-header">
+                    <h4 class="modal-title" id="donateModalLabel"><i class="fas fa-hand-holding-usd me-2"></i>Support
+                        The Ministry</h4>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="text-center text-muted mb-4">"Each of you should give what you have decided in your heart
+                        to give, not reluctantly or under compulsion, for God loves a cheerful giver." — 2 Corinthians
+                        9:7</p>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="donate-card">
+                                <div class="donate-icon momo-icon"><i class="fas fa-mobile-alt"></i></div>
+                                <h5>Mobile Money (MoMo)</h5>
+                                <p class="donate-detail"><strong>Number:</strong> <span id="momoNumber">055 518
+                                        1331</span></p>
+                                <p class="donate-detail"><strong>Name:</strong> Open Door Baptist Church</p>
+                                <p class="donate-detail"><strong>Network:</strong> MTN MoMo</p>
+                                <button class="copy-btn" data-copy="momoNumber"><i class="fas fa-copy me-2"></i>Copy
+                                    Number</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="donate-card">
+                                <div class="donate-icon bank-icon"><i class="fas fa-university"></i></div>
+                                <h5>Bank Transfer</h5>
+                                <p class="donate-detail"><strong>Bank:</strong> [Bank Name]</p>
+                                <p class="donate-detail"><strong>Account Name:</strong> Open Door Baptist Church</p>
+                                <p class="donate-detail"><strong>Account No:</strong> <span
+                                        id="bankAccount">XXXX-XXXX-XXXX</span></p>
+                                <button class="copy-btn" data-copy="bankAccount"><i class="fas fa-copy me-2"></i>Copy
+                                    Account</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-5">
-                <div class="fb-feed-wrap tilt-card mb-4">
-                    <h4 class="mb-3"><i class="fas fa-broadcast-tower text-danger"></i> Live & Recent Posts</h4>
-                    <iframe class="fb-videos-frame"
-                        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FODBCKentinkronoKumasiGhana&tabs=timeline&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false"
-                        style="border:none;overflow:hidden;border-radius:12px;"
-                        scrolling="no" frameborder="0" allowfullscreen
-                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-                </div>
-                <div class="text-center">
-                    <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank" rel="noopener" class="btn-3d w-100"><i class="fab fa-facebook me-2"></i>Browse All On Facebook</a>
+                    <div class="text-center mt-4">
+                        <p class="small text-muted mb-0"><i class="fas fa-shield-alt me-1"></i>Thank you for partnering
+                            with us. May God bless your generosity.</p>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- HIGHLIGHT TAGS -->
-        <div class="Head-main"><div class="H-M"><h1>Browse By Topic</h1></div></div>
-
-        <!-- FILTER BUTTONS (manual highlights) -->
-        <div class="sermon-filters">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="prayer">Prayer</button>
-            <button class="filter-btn" data-filter="faith">Faith</button>
-            <button class="filter-btn" data-filter="worship">Worship</button>
-            <button class="filter-btn" data-filter="discipleship">Discipleship</button>
-        </div>
-
-        <!-- SERMON GRID — curated highlights -->
-        <div class="row g-4" id="sermonGrid">
-
-            <div class="col-md-6 col-lg-4 sermon-item" data-category="prayer">
-                <div class="sermon-card tilt-card h-100">
-                    <div class="card border-0 h-100">
-                        <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank" rel="noopener" class="sermon-thumb-link">
-                            <div class="sermon-thumb">
-                                <img src="images/pngtree-a-white-catholic-church-on-a-summer-day-with-dark-clouds-image_15680672.jpg" alt="The Power of Prayer">
-                                <span class="play-icon"><i class="fas fa-play"></i></span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <span class="sermon-tag">Prayer</span>
-                            <h5 class="card-title">The Power of Prayer</h5>
-                            <div class="sermon-meta">
-                                <span><i class="fas fa-user"></i>Pastor Kofi Asumadu</span>
-                                <span><i class="fas fa-calendar"></i>July 1, 2025</span>
-                            </div>
-                            <p class="card-text">A soul-lifting sermon on how prayer brings transformation in every season of life.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 sermon-item" data-category="faith">
-                <div class="sermon-card tilt-card h-100">
-                    <div class="card border-0 h-100">
-                        <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank" rel="noopener" class="sermon-thumb-link">
-                            <div class="sermon-thumb">
-                                <img src="images/empty-christian-church-building_23-2151103910.jpg" alt="Faith Over Fear">
-                                <span class="play-icon"><i class="fas fa-play"></i></span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <span class="sermon-tag">Faith</span>
-                            <h5 class="card-title">Faith Over Fear</h5>
-                            <div class="sermon-meta">
-                                <span><i class="fas fa-user"></i>Rev. John</span>
-                                <span><i class="fas fa-calendar"></i>June 28, 2025</span>
-                            </div>
-                            <p class="card-text">Overcoming fear and trusting God's promises fully — even when you can't see the way.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 sermon-item" data-category="worship">
-                <div class="sermon-card tilt-card h-100">
-                    <div class="card border-0 h-100">
-                        <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank" rel="noopener" class="sermon-thumb-link">
-                            <div class="sermon-thumb">
-                                <img src="images/colorful-christian-cross-with-music-notes.jpg" alt="A Heart of Worship">
-                                <span class="play-icon"><i class="fas fa-play"></i></span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <span class="sermon-tag">Worship</span>
-                            <h5 class="card-title">A Heart of Worship</h5>
-                            <div class="sermon-meta">
-                                <span><i class="fas fa-user"></i>Pastor Kofi Asumadu</span>
-                                <span><i class="fas fa-calendar"></i>June 22, 2025</span>
-                            </div>
-                            <p class="card-text">Worship is more than a song — it's a lifestyle of surrender. Discover what it means to truly worship in spirit and truth.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 sermon-item" data-category="discipleship">
-                <div class="sermon-card tilt-card h-100">
-                    <div class="card border-0 h-100">
-                        <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank" rel="noopener" class="sermon-thumb-link">
-                            <div class="sermon-thumb">
-                                <img src="images/bible-reading-book-or-hands-of-family-in-prayer-support-or-hope-in-christianity-home-for.jpg" alt="Walking In His Footsteps">
-                                <span class="play-icon"><i class="fas fa-play"></i></span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <span class="sermon-tag">Discipleship</span>
-                            <h5 class="card-title">Walking In His Footsteps</h5>
-                            <div class="sermon-meta">
-                                <span><i class="fas fa-user"></i>Deacon Badu</span>
-                                <span><i class="fas fa-calendar"></i>June 15, 2025</span>
-                            </div>
-                            <p class="card-text">Becoming a true disciple of Christ in a world that constantly pulls us in every direction.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 sermon-item" data-category="prayer">
-                <div class="sermon-card tilt-card h-100">
-                    <div class="card border-0 h-100">
-                        <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank" rel="noopener" class="sermon-thumb-link">
-                            <div class="sermon-thumb">
-                                <img src="images/vertical-shot-church-with-blue-cloudy-sky-background_181624-9309.jpg" alt="Breakthrough Prayer">
-                                <span class="play-icon"><i class="fas fa-play"></i></span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <span class="sermon-tag">Prayer</span>
-                            <h5 class="card-title">Breakthrough Prayer</h5>
-                            <div class="sermon-meta">
-                                <span><i class="fas fa-user"></i>Evangelist Mike K.</span>
-                                <span><i class="fas fa-calendar"></i>June 8, 2025</span>
-                            </div>
-                            <p class="card-text">When heaven feels silent, persistent prayer breaks every chain. Learn how to pray until you break through.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 sermon-item" data-category="faith">
-                <div class="sermon-card tilt-card h-100">
-                    <div class="card border-0 h-100">
-                        <a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana/videos" target="_blank" rel="noopener" class="sermon-thumb-link">
-                            <div class="sermon-thumb">
-                                <img src="images/Church-Background.jpg" alt="Mountain-Moving Faith">
-                                <span class="play-icon"><i class="fas fa-play"></i></span>
-                            </div>
-                        </a>
-                        <div class="card-body">
-                            <span class="sermon-tag">Faith</span>
-                            <h5 class="card-title">Mountain-Moving Faith</h5>
-                            <div class="sermon-meta">
-                                <span><i class="fas fa-user"></i>Pastor Kofi Asumadu</span>
-                                <span><i class="fas fa-calendar"></i>June 1, 2025</span>
-                            </div>
-                            <p class="card-text">Even faith the size of a mustard seed can move mountains. A powerful word on activating your faith.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- NEWSLETTER -->
-        <div class="newsletter-cta">
-            <h3><i class="fas fa-envelope-open-text me-2"></i>Never Miss A Sermon</h3>
-            <p>Subscribe to get weekly sermons and devotionals delivered straight to your inbox.</p>
-            <form class="newsletter-form ajax-form">
-                <input type="email" placeholder="Enter your email address" required>
-                <button type="submit"><i class="fas fa-paper-plane me-2"></i>Subscribe</button>
-            </form>
-        </div>
-
     </div>
-</section>
 
-<footer class="text-white pt-5 pb-4">
-    <div class="container">
-        <div class="row text-md-left">
-            <div class="col-md-3 mx-auto mt-3">
-                <h5 class="text-uppercase mb-4 fw-bold text-info">About the Church</h5>
-                <p>Welcome to Open Door Baptist Church; a place of refreshing change. A place where sickness cannot thrive. A place where members are accident-free. This is Jesus Christ's Church!</p>
-            </div>
-            <div class="col-md-2 mx-auto mt-3">
-                <h5 class="text-uppercase mb-4 fw-bold text-info">Quick Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="about.html" class="text-white text-decoration-none">About Us</a></li>
-                    <li><a href="index.html#Ministries" class="text-white text-decoration-none">Ministries</a></li>
-                    <li><a href="index.html#Meeting" class="text-white text-decoration-none">Meeting Days</a></li>
-                    <li><a href="sermons.html" class="text-white text-decoration-none">Sermons</a></li>
-                    <li><a href="contact.html" class="text-white text-decoration-none">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3 mx-auto mt-3">
-                <h5 class="text-uppercase mb-4 fw-bold text-info">Our Address</h5>
-                <ul class="list-unstyled">
-                    <li><a href="https://www.google.com/maps/place/MCRR+62C,+Kumasi" target="_blank" class="text-white text-decoration-none">Kumasi, Ghana</a></li>
-                    <li><a href="mailto:opendoorbaptistch@gmail.com" class="text-white text-decoration-none">opendoorbaptistch@gmail.com</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3 mx-auto mt-3">
-                <h5 class="text-uppercase mb-4 fw-bold text-info">Connect</h5>
-                <ul class="list-unstyled">
-                    <li><a href="https://www.facebook.com/ODBCKentinkronoKumasiGhana" class="text-white text-decoration-none"><i class="fab fa-facebook me-2"></i>Facebook</a></li>
-                    <li><a href="https://www.instagram.com/opendoorbaptistchurchgh/" class="text-white text-decoration-none"><i class="fab fa-instagram me-2"></i>Instagram</a></li>
-                </ul>
-            </div>
-        </div>
-        <hr class="mb-4 mt-4">
-        <div class="row text-center">
-            <div class="col-md-12">
-                <p class="mb-0 text-secondary">&copy; 2026 Open Door Baptist Church</p>
-                <p class="mb-0 text-secondary">Delivered & Developed by Code Dev Keys</p>
-            </div>
-        </div>
-    </div>
-</footer>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Sermon category filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const sermonItems = document.querySelectorAll('.sermon-item');
 
-<!-- DONATION FLOATING BUTTON -->
-<button class="donate-fab" data-bs-toggle="modal" data-bs-target="#donateModal" aria-label="Donate">
-    <i class="fas fa-hand-holding-heart"></i>
-    <span>Donate</span>
-</button>
-
-<!-- DONATION MODAL -->
-<div class="modal fade" id="donateModal" tabindex="-1" aria-labelledby="donateModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content donate-modal-content">
-            <div class="modal-header donate-modal-header">
-                <h4 class="modal-title" id="donateModalLabel"><i class="fas fa-hand-holding-usd me-2"></i>Support The Ministry</h4>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-4">
-                <p class="text-center text-muted mb-4">"Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver." — 2 Corinthians 9:7</p>
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <div class="donate-card">
-                            <div class="donate-icon momo-icon"><i class="fas fa-mobile-alt"></i></div>
-                            <h5>Mobile Money (MoMo)</h5>
-                            <p class="donate-detail"><strong>Number:</strong> <span id="momoNumber">+233 XX XXX XXXX</span></p>
-                            <p class="donate-detail"><strong>Name:</strong> Open Door Baptist Church</p>
-                            <p class="donate-detail"><strong>Network:</strong> MTN MoMo</p>
-                            <button class="copy-btn" data-copy="momoNumber"><i class="fas fa-copy me-2"></i>Copy Number</button>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="donate-card">
-                            <div class="donate-icon bank-icon"><i class="fas fa-university"></i></div>
-                            <h5>Bank Transfer</h5>
-                            <p class="donate-detail"><strong>Bank:</strong> [Bank Name]</p>
-                            <p class="donate-detail"><strong>Account Name:</strong> Open Door Baptist Church</p>
-                            <p class="donate-detail"><strong>Account No:</strong> <span id="bankAccount">XXXX-XXXX-XXXX</span></p>
-                            <button class="copy-btn" data-copy="bankAccount"><i class="fas fa-copy me-2"></i>Copy Account</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center mt-4">
-                    <p class="small text-muted mb-0"><i class="fas fa-shield-alt me-1"></i>Thank you for partnering with us. May God bless your generosity.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/main.js"></script>
-<script>
-    // Sermon category filter
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const sermonItems = document.querySelectorAll('.sermon-item');
-
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            const filter = btn.getAttribute('data-filter');
-            sermonItems.forEach(item => {
-                if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                    item.classList.remove('hidden');
-                } else {
-                    item.classList.add('hidden');
-                }
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.getAttribute('data-filter');
+                sermonItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 </body>
+
 </html>
