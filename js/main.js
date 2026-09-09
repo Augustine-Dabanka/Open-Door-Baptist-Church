@@ -198,6 +198,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ============================================================
+       "WE'RE LIVE" TOP BANNER
+       Auto-shows during service windows (and EPISKIAZO daily 6 PM).
+       Manual override: set LIVE_OVERRIDE to true (always show) or
+       false (never show); null = automatic by schedule.
+       Edit the fbLive / tiktokLive URLs and the SERVICE_WINDOWS below.
+       ============================================================ */
+    const LIVE_OVERRIDE = null;
+    const fbLive = 'https://www.facebook.com/ODBCKentinkronoKumasiGhana/live_videos';
+    const tiktokLive = 'https://www.tiktok.com/@open.door.baptist41/live';
+    // day: 0=Sun … 6=Sat, start: "HH:MM" (local), dur: minutes
+    const SERVICE_WINDOWS = [
+        { day: 0, start: '07:00', dur: 150 },   // Sunday 1st service
+        { day: 0, start: '10:00', dur: 150 },   // Sunday 2nd service
+        { day: 3, start: '18:30', dur: 90 },    // Wednesday mid-week
+        { day: 5, start: '09:00', dur: 120 },   // Friday special
+        { day: 6, start: '07:00', dur: 120 },   // Saturday evangelism
+    ];
+    // Special run: EPISKIAZO daily 6:00 PM, until 27 Sep 2026 (inclusive)
+    const EPISKIAZO_UNTIL = new Date('2026-09-28T00:00:00');
+
+    const withinWindow = (now, start, dur) => {
+        const [h, m] = start.split(':').map(Number);
+        const s = new Date(now); s.setHours(h, m, 0, 0);
+        return now >= s && now <= new Date(s.getTime() + dur * 60000);
+    };
+    const isLiveNow = (now) => {
+        if (LIVE_OVERRIDE === true) return true;
+        if (LIVE_OVERRIDE === false) return false;
+        for (const w of SERVICE_WINDOWS) {
+            if (now.getDay() === w.day && withinWindow(now, w.start, w.dur)) return true;
+        }
+        if (now < EPISKIAZO_UNTIL && withinWindow(now, '18:00', 120)) return true;
+        return false;
+    };
+
+    let liveDismissed = false;
+    try { liveDismissed = sessionStorage.getItem('odbcLiveDismissed') === '1'; } catch { }
+    if (!liveDismissed && isLiveNow(new Date()) && !document.querySelector('.live-bar')) {
+        const bar = document.createElement('div');
+        bar.className = 'live-bar';
+        bar.setAttribute('role', 'region');
+        bar.setAttribute('aria-label', 'Live service');
+        bar.innerHTML =
+            '<span class="live-dot"></span>' +
+            '<span class="live-text"><strong>We’re live now</strong> — join the service online.</span>' +
+            '<a class="live-btn solid" href="' + fbLive + '" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> Watch on Facebook</a>' +
+            '<a class="live-btn" href="' + tiktokLive + '" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i> TikTok</a>' +
+            '<button class="live-close" type="button" aria-label="Dismiss">×</button>';
+        document.body.insertBefore(bar, document.body.firstChild);
+        bar.querySelector('.live-close').addEventListener('click', () => {
+            bar.remove();
+            try { sessionStorage.setItem('odbcLiveDismissed', '1'); } catch { }
+        });
+    }
+
+    /* ============================================================
        WhatsApp click-to-chat floating button (site-wide)
        EDIT waNumber to the church's WhatsApp number (intl, no +/spaces).
        ============================================================ */
