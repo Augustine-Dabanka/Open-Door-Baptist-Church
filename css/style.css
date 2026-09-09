@@ -1777,13 +1777,13 @@ button, .btn, [role="button"] { min-height: 40px; }
    ============================================================================ */
 
 :root {
-    --brand-900: #2a1533;   /* deepest aubergine — headers, footer */
-    --brand-800: #3a2049;
-    --brand-700: #4e2f61;
-    --brand-600: #6a4a80;   /* primary interactive */
-    --brand-500: #815e97;
-    --gold:      #c2a05a;   /* refined warm gold accent */
-    --gold-soft: #ddc48a;
+    --brand-900: #4a148c;   /* deepest aubergine — headers, footer */
+    --brand-800: #6a1b9a;
+    --brand-700: #7b1fa2;
+    --brand-600: #8e24aa;   /* primary interactive */
+    --brand-500: #9c27b0;
+    --gold:      #d4a017;   /* refined warm gold accent */
+    --gold-soft: #e6c877;
     --ink:       #241f2b;   /* body text */
     --muted:     #6d6678;   /* secondary text */
     --line:      #ece7f0;   /* hairlines / borders */
@@ -1791,17 +1791,17 @@ button, .btn, [role="button"] { min-height: 40px; }
     --surface-2: #f8f6fa;   /* barely-there section tint */
 
     /* Re-point legacy tokens so anything using them inherits the new palette */
-    --primary: #6a4a80;
-    --primary-dark: #4e2f61;
-    --primary-darker: #3a2049;
-    --primary-light: #6a4a80;
-    --pink: #815e97;
-    --accent: #c2a05a;
-    --accent-2: #c2a05a;
-    --dark: #2a1533;
-    --dark-2: #3a2049;
-    --shadow-3d: 0 1px 2px rgba(30,16,42,0.05), 0 10px 30px rgba(30,16,42,0.09);
-    --shadow-soft: 0 1px 2px rgba(30,16,42,0.05), 0 6px 18px rgba(30,16,42,0.07);
+    --primary: #8e24aa;
+    --primary-dark: #7b1fa2;
+    --primary-darker: #6a1b9a;
+    --primary-light: #8e24aa;
+    --pink: #9c27b0;
+    --accent: #d4a017;
+    --accent-2: #d4a017;
+    --dark: #4a148c;
+    --dark-2: #6a1b9a;
+    --shadow-3d: 0 1px 2px rgba(74,20,140,0.05), 0 10px 30px rgba(74,20,140,0.09);
+    --shadow-soft: 0 1px 2px rgba(74,20,140,0.05), 0 6px 18px rgba(74,20,140,0.07);
 }
 
 /* --- Base --- */
@@ -1828,7 +1828,7 @@ h1, h2, h3, h4, h5 { letter-spacing: -0.01em; }
 /* ---------------- HEADER / NAV ---------------- */
 .site-header {
     background: var(--brand-900);
-    box-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 6px 24px rgba(30,16,42,0.18);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 6px 24px rgba(74,20,140,0.18);
 }
 .navbar { padding-top: 0.7rem; padding-bottom: 0.7rem; }
 .navbar-brand { letter-spacing: 0.2px; font-weight: 600; }
@@ -1882,18 +1882,18 @@ h1, h2, h3, h4, h5 { letter-spacing: -0.01em; }
     border-radius: 8px;
     font-weight: 600;
     letter-spacing: 0.2px;
-    box-shadow: 0 2px 6px rgba(30,16,42,0.18);
+    box-shadow: 0 2px 6px rgba(74,20,140,0.18);
     transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .btn-3d:hover, .learn-btn:hover, .back-btn:hover {
     background: var(--brand-700);
     transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(30,16,42,0.24);
+    box-shadow: 0 6px 18px rgba(74,20,140,0.24);
     color: #fff;
 }
-.btn-3d:active, .learn-btn:active, .back-btn:active { transform: translateY(0); box-shadow: 0 2px 6px rgba(30,16,42,0.2); }
+.btn-3d:active, .learn-btn:active, .back-btn:active { transform: translateY(0); box-shadow: 0 2px 6px rgba(74,20,140,0.2); }
 /* Gold "outline" secondary style available via .btn-gold if needed */
-.btn-gold { background: var(--gold) !important; color: var(--brand-900) !important; box-shadow: 0 2px 6px rgba(30,16,42,0.15) !important; }
+.btn-gold { background: var(--gold) !important; color: var(--brand-900) !important; box-shadow: 0 2px 6px rgba(74,20,140,0.15) !important; }
 .btn-gold:hover { background: var(--gold-soft) !important; color: var(--brand-900) !important; }
 
 /* ---------------- SECTION HEADINGS ---------------- */
@@ -1924,7 +1924,7 @@ h1, h2, h3, h4, h5 { letter-spacing: -0.01em; }
 .content-card:hover, .fb-feed-wrap:hover, .program-card:hover,
 .project-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 1px 2px rgba(30,16,42,0.05), 0 16px 40px rgba(30,16,42,0.12);
+    box-shadow: 0 1px 2px rgba(74,20,140,0.05), 0 16px 40px rgba(74,20,140,0.12);
 }
 .feature-box i, .vm-card i { color: var(--brand-600); filter: none; -webkit-text-fill-color: currentColor; background: none; }
 .leader-role, .sermon-tag, .speaker-role { background: var(--brand-600); }
@@ -1932,10 +1932,10 @@ h1, h2, h3, h4, h5 { letter-spacing: -0.01em; }
 
 /* Tame the strong 3D rotations on ministry tiles → clean lift */
 .Min-Sec { border-radius: 14px; box-shadow: var(--shadow-soft); border: 1px solid var(--line); }
-.Min-Sec:hover { transform: translateY(-5px) !important; box-shadow: 0 16px 40px rgba(30,16,42,0.16) !important; }
+.Min-Sec:hover { transform: translateY(-5px) !important; box-shadow: 0 16px 40px rgba(74,20,140,0.16) !important; }
 .Min-Sec:hover img { transform: scale(1.04); }
 .Min-Sec .text {
-    background: linear-gradient(to top, rgba(42,21,51,0.92), rgba(42,21,51,0.35) 70%, transparent);
+    background: linear-gradient(to top, rgba(74,20,140,0.92), rgba(74,20,140,0.35) 70%, transparent);
     font-weight: 600; letter-spacing: 0.3px;
 }
 .img-3d-wrap:hover { transform: translateY(-4px); }
@@ -1943,8 +1943,8 @@ h1, h2, h3, h4, h5 { letter-spacing: -0.01em; }
 /* ---------------- HERO (home carousel) ---------------- */
 .hero-overlay {
     background:
-        radial-gradient(ellipse at center, rgba(20,10,26,0.25) 0%, rgba(20,10,26,0.55) 100%),
-        linear-gradient(180deg, rgba(42,21,51,0.55) 0%, rgba(20,10,26,0.4) 45%, rgba(20,10,26,0.8) 100%);
+        radial-gradient(ellipse at center, rgba(58,10,74,0.25) 0%, rgba(58,10,74,0.55) 100%),
+        linear-gradient(180deg, rgba(74,20,140,0.55) 0%, rgba(58,10,74,0.4) 45%, rgba(58,10,74,0.8) 100%);
 }
 .hero-img { filter: brightness(0.5) saturate(1.05); }
 .hero-title { text-shadow: 0 2px 18px rgba(0,0,0,0.55); font-weight: 800; }
@@ -1953,12 +1953,12 @@ h1, h2, h3, h4, h5 { letter-spacing: -0.01em; }
 /* Sub-page hero banner: deep, refined, single tasteful gradient */
 .hero-banner {
     background:
-        linear-gradient(135deg, rgba(42,21,51,0.4), rgba(42,21,51,0.4)),
-        linear-gradient(135deg, #2a1533 0%, #4e2f61 55%, #6a4a80 100%);
+        linear-gradient(135deg, rgba(74,20,140,0.4), rgba(74,20,140,0.4)),
+        linear-gradient(135deg, #4a148c 0%, #7b1fa2 55%, #8e24aa 100%);
     box-shadow: inset 0 -6px 20px rgba(0,0,0,0.25);
 }
 .hero-banner::after {
-    background: radial-gradient(circle, rgba(194,160,90,0.22), transparent 70%);
+    background: radial-gradient(circle, rgba(212,160,23,0.22), transparent 70%);
 }
 .hero-banner .overlay {
     background: radial-gradient(ellipse at center, rgba(0,0,0,0) 45%, rgba(0,0,0,0.3) 100%);
@@ -1993,11 +1993,11 @@ footer .text-info { color: var(--gold) !important; }
 /* ---------------- DONATE FAB / MODAL ---------------- */
 .donate-fab {
     background: var(--brand-600);
-    box-shadow: 0 6px 20px rgba(30,16,42,0.28);
+    box-shadow: 0 6px 20px rgba(74,20,140,0.28);
     animation: none;
     font-weight: 600;
 }
-.donate-fab:hover { background: var(--brand-700); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(30,16,42,0.34); }
+.donate-fab:hover { background: var(--brand-700); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(74,20,140,0.34); }
 .donate-modal-header { background: var(--brand-900); }
 .donate-card { background: var(--surface-2); border: 1px solid var(--line); }
 .donate-card:hover { border-color: var(--gold); box-shadow: var(--shadow-soft); }
@@ -2010,9 +2010,9 @@ footer .text-info { color: var(--gold) !important; }
 
 /* ---------------- BG-REVEAL (parallax verse) — muted, dignified ---------------- */
 .bg-reveal {
-    background-color: #2a1533;
+    background-color: #4a148c;
     background-image:
-        linear-gradient(180deg, rgba(20,10,26,0.72), rgba(20,10,26,0.72)),
+        linear-gradient(180deg, rgba(58,10,74,0.72), rgba(58,10,74,0.72)),
         url("../images/Church-Background.jpg");
 }
 .bg-reveal .reveal-content cite { color: var(--gold); }
@@ -2032,7 +2032,7 @@ footer .text-info { color: var(--gold) !important; }
     background: var(--brand-900);
     box-shadow: var(--shadow-3d);
 }
-.teaser-card::after { background: radial-gradient(circle, rgba(194,160,90,0.18), transparent 70%); }
+.teaser-card::after { background: radial-gradient(circle, rgba(212,160,23,0.18), transparent 70%); }
 .teaser-text .btn-3d { background: var(--gold); color: var(--brand-900) !important; box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
 .teaser-text .btn-3d:hover { background: var(--gold-soft); box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
 
@@ -2047,7 +2047,7 @@ footer .text-info { color: var(--gold) !important; }
 .speaker-heading { color: var(--brand-600); }
 
 .program-banner { background: var(--brand-700); }
-.program-banner::after { background: linear-gradient(to top, rgba(24,12,30,0.9) 0%, rgba(24,12,30,0.15) 65%, transparent 100%); }
+.program-banner::after { background: linear-gradient(to top, rgba(58,10,74,0.9) 0%, rgba(58,10,74,0.15) 65%, transparent 100%); }
 .program-banner .pb-tag { background: var(--gold); color: var(--brand-900); }
 .banner-slot { border-color: #d7cbe2; background: var(--surface-2); color: var(--brand-600); }
 .banner-slot:hover { border-color: var(--gold); background: #f3eef8; }
@@ -2110,7 +2110,7 @@ footer .text-info { color: var(--gold) !important; }
     gap: 12px;
     margin: 0 auto 20px;
     padding: 8px 8px 8px 18px;
-    background: rgba(20,10,26,0.42);
+    background: rgba(58,10,74,0.42);
     border: 1px solid rgba(255,255,255,0.22);
     border-radius: 50px;
     backdrop-filter: blur(6px);
@@ -2142,13 +2142,13 @@ footer .text-info { color: var(--gold) !important; }
     border-radius: 16px;
     padding: clamp(22px, 3vw, 34px);
     height: 100%;
-    box-shadow: 0 1px 2px rgba(30,16,42,0.05), 0 16px 40px rgba(30,16,42,0.10);
+    box-shadow: 0 1px 2px rgba(74,20,140,0.05), 0 16px 40px rgba(74,20,140,0.10);
     display: flex;
     gap: 16px;
     align-items: flex-start;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.visit-card:hover { transform: translateY(-5px); box-shadow: 0 1px 2px rgba(30,16,42,0.05), 0 22px 50px rgba(30,16,42,0.16); }
+.visit-card:hover { transform: translateY(-5px); box-shadow: 0 1px 2px rgba(74,20,140,0.05), 0 22px 50px rgba(74,20,140,0.16); }
 .visit-card .vc-icon {
     flex: 0 0 auto;
     width: 52px; height: 52px; border-radius: 12px;
@@ -2170,7 +2170,7 @@ footer .text-info { color: var(--gold) !important; }
 .welcome-media:hover img { transform: scale(1.04); }
 .welcome-media .wm-badge {
     position: absolute; left: 18px; bottom: 18px;
-    background: rgba(42,21,51,0.85); color: #fff; border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(74,20,140,0.85); color: #fff; border: 1px solid rgba(255,255,255,0.2);
     padding: 10px 16px; border-radius: 12px; backdrop-filter: blur(4px);
     font-size: 0.82rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;
 }
@@ -2189,8 +2189,8 @@ footer .text-info { color: var(--gold) !important; }
     padding: clamp(50px, 7vw, 96px) clamp(16px, 4vw, 40px);
     text-align: center; color: #fff; overflow: hidden;
     background:
-        radial-gradient(circle at 15% 15%, rgba(194,160,90,0.18), transparent 55%),
-        linear-gradient(135deg, #2a1533 0%, #4e2f61 60%, #6a4a80 100%);
+        radial-gradient(circle at 15% 15%, rgba(212,160,23,0.18), transparent 55%),
+        linear-gradient(135deg, #4a148c 0%, #7b1fa2 60%, #8e24aa 100%);
 }
 .visit-cta .eyebrow { display: inline-block; font-size: 0.74rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
 .visit-cta h2 { color: #fff; font-weight: 800; margin-bottom: 14px; }
@@ -2250,4 +2250,59 @@ footer .text-secondary { color: rgba(255,255,255,0.5) !important; font-size: 0.8
     display: inline-flex; align-items: center; justify-content: center;
     width: 46px; height: 46px; border-radius: 12px; margin-bottom: 14px;
     background: linear-gradient(140deg, var(--brand-600), var(--brand-800)); color: #fff; font-size: 1.2rem;
+}
+
+
+/* ============ EPISKIAZO feature (flyer + real videos) ============ */
+.flyer-frame {
+    display: block; border-radius: 16px; overflow: hidden;
+    box-shadow: var(--shadow-3d); background: #4a148c; max-width: 440px; margin: 0 auto;
+    transition: transform 0.4s ease;
+}
+.flyer-frame:hover { transform: translateY(-4px); }
+.flyer-frame img { width: 100%; height: auto; display: block; }
+.event-badge-live {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #a23b3b; color: #fff; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    font-size: 0.72rem; padding: 6px 14px; border-radius: 20px; margin-bottom: 14px;
+}
+.event-badge-live .dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; }
+.video-embed video { width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
+
+
+/* ============================================================================
+   NAVBAR — optimized for desktop (no wrapping/cramping) + tidy mobile
+   ============================================================================ */
+.navbar { padding-top: 0.55rem; padding-bottom: 0.55rem; }
+.navbar-nav .nav-link { white-space: nowrap; }
+
+/* Desktop (lg and up): single row, brand and links share space cleanly */
+@media (min-width: 992px) {
+    .site-header .navbar { flex-wrap: nowrap; column-gap: 12px; }
+    .navbar-brand {
+        flex: 0 1 auto; min-width: 0; align-items: center;
+        font-size: clamp(0.8rem, 0.5rem + 0.6vw, 1rem);
+    }
+    /* Brand text may wrap to two tidy lines instead of shoving the menu */
+    .navbar-brand > span { white-space: normal; line-height: 1.15; }
+    .navbar-collapse { flex: 1 1 auto; }
+    .navbar-nav { align-items: center; flex-wrap: nowrap; gap: 2px; }
+    .navbar-nav .nav-link {
+        padding: 8px clamp(8px, 0.9vw, 14px) !important;
+        margin: 0; font-size: clamp(0.82rem, 0.72rem + 0.3vw, 0.96rem);
+    }
+    .navbar-nav .dropdown-menu { margin-top: 6px !important; }
+}
+
+/* Mid-desktop safety: if it ever gets tight, keep it readable */
+@media (min-width: 992px) and (max-width: 1100px) {
+    .navbar-brand { font-size: 0.82rem; }
+    .navbar-brand .navbar-logo { height: 40px; width: 40px; }
+    .navbar-nav .nav-link { padding: 8px 8px !important; }
+}
+
+/* Mobile: comfortable stacked menu */
+@media (max-width: 991.98px) {
+    .navbar-nav .nav-link { padding: 11px 14px !important; }
+    .navbar-collapse { margin-top: 10px; }
 }
