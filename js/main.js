@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
        WhatsApp click-to-chat floating button (site-wide)
        EDIT waNumber to the church's WhatsApp number (intl, no +/spaces).
        ============================================================ */
-    const waNumber = '233240250416';
+    const waNumber = '233248838079';
     const waMsg = "Hello Open Door Baptist Church, I'd love to know more about your services.";
     if (waNumber && !document.querySelector('.whatsapp-fab')) {
         const wa = document.createElement('a');
