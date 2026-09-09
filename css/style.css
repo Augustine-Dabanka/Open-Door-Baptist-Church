@@ -2107,29 +2107,35 @@ footer .text-info { color: var(--gold) !important; }
 .hero-next {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    margin: 0 auto 20px;
-    padding: 8px 8px 8px 18px;
-    background: rgba(58,10,74,0.42);
-    border: 1px solid rgba(255,255,255,0.22);
+    gap: 10px;
+    margin: 0 auto 18px;
+    padding: 5px 16px;
+    background: rgba(58,10,74,0.38);
+    border: 1px solid rgba(255,255,255,0.20);
     border-radius: 50px;
     backdrop-filter: blur(6px);
     color: #fff;
-    font-size: clamp(0.72rem, 0.66rem + 0.3vw, 0.9rem);
-    box-shadow: 0 8px 22px rgba(0,0,0,0.28);
+    font-size: clamp(0.72rem, 0.66rem + 0.3vw, 0.88rem);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
 }
-.hero-next .hn-label { display: inline-flex; align-items: center; gap: 7px; font-weight: 600; letter-spacing: 0.3px; white-space: nowrap; }
-.hero-next .hn-label i { color: var(--gold); }
-.hero-next .countdown.compact { margin: 0; gap: 5px; }
+.hero-next .hn-label { display: inline-flex; align-items: center; gap: 7px; font-weight: 500; letter-spacing: 0.3px; white-space: nowrap; opacity: 0.92; }
+.hero-next .hn-label i { color: var(--gold); font-size: 0.85em; }
+/* Slim inline countdown: flat numbers with hairline dividers, no boxes */
+.hero-next .countdown.compact { margin: 0; gap: 0; }
 .hero-next .countdown.compact .count-box {
-    min-width: 0; padding: 5px 8px; border-radius: 8px;
-    background: rgba(255,255,255,0.12); border: none; box-shadow: none;
+    min-width: 0; padding: 0 9px; border-radius: 0;
+    background: none; border: none; box-shadow: none;
+    display: inline-flex; align-items: baseline;
 }
-.hero-next .countdown.compact .count-num { font-family: 'Poppins', sans-serif; font-size: clamp(0.8rem, 0.7rem + 0.4vw, 1.05rem); font-weight: 700; }
+.hero-next .countdown.compact .count-box + .count-box { border-left: 1px solid rgba(255,255,255,0.22); }
+.hero-next .countdown.compact .count-num {
+    font-family: 'Poppins', sans-serif; font-weight: 700; line-height: 1;
+    font-size: clamp(0.82rem, 0.72rem + 0.35vw, 1rem); font-variant-numeric: tabular-nums;
+}
 .hero-next .countdown.compact .count-label { display: none; }
 .hero-next .countdown.compact .count-box::after {
     content: attr(data-u);
-    font-size: 0.55rem; letter-spacing: 1px; opacity: 0.7; margin-left: 2px; text-transform: uppercase;
+    font-size: 0.62rem; letter-spacing: 0.4px; opacity: 0.65; margin-left: 1px; text-transform: lowercase;
 }
 @media (max-width: 560px) { .hero-next { display: none; } }   /* keep hero clean on tiny screens */
 
@@ -2486,3 +2492,16 @@ footer { background: linear-gradient(135deg, #3a0a4a 0%, #6a1b9a 50%, #ad1457 10
     .live-bar { padding-right: 34px; }
     .live-bar .live-text { flex-basis: 100%; text-align: center; }
 }
+
+
+/* ============ MINISTRY HERO WITH REAL PHOTO (opt-in) ============ */
+.hero-banner.hero-photo { background: #2a1533; }
+.hero-banner.hero-photo img {
+    display: block !important; position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover; z-index: 0; filter: brightness(0.6);
+}
+.hero-banner.hero-photo .overlay {
+    z-index: 1;
+    background: linear-gradient(120deg, rgba(58,10,74,0.55) 0%, rgba(142,36,170,0.32) 100%);
+}
+.hero-banner.hero-photo .caption { z-index: 2; }
