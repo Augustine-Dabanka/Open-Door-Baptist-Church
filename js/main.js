@@ -196,4 +196,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { threshold: 0.4 });
         bars.forEach(b => { b.style.width = '0%'; barIO.observe(b); });
     }
+
+    /* ============================================================
+       WhatsApp click-to-chat floating button (site-wide)
+       EDIT waNumber to the church's WhatsApp number (intl, no +/spaces).
+       ============================================================ */
+    const waNumber = '233240250416';
+    const waMsg = "Hello Open Door Baptist Church, I'd love to know more about your services.";
+    if (waNumber && !document.querySelector('.whatsapp-fab')) {
+        const wa = document.createElement('a');
+        wa.href = 'https://wa.me/' + waNumber + '?text=' + encodeURIComponent(waMsg);
+        wa.className = 'whatsapp-fab';
+        wa.target = '_blank';
+        wa.rel = 'noopener';
+        wa.setAttribute('aria-label', 'Chat with us on WhatsApp');
+        wa.innerHTML = '<i class="fab fa-whatsapp"></i><span>Chat</span>';
+        document.body.appendChild(wa);
+    }
 });
