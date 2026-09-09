@@ -198,6 +198,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ============================================================
+       LAZY-LOAD SOCIAL EMBEDS (Facebook + TikTok)
+       Their SDK/embed scripts are heavy, so we only load them when the
+       socials section scrolls near the viewport — big first-load win.
+       ============================================================ */
+    const socialTarget = document.querySelector('.fb-feed-wrap, .tiktok-embed, .fb-page');
+    if (socialTarget) {
+        const needFB = !!document.querySelector('.fb-page, .fb-videos-frame');
+        const needTT = !!document.querySelector('.tiktok-embed');
+        const loadSocials = () => {
+            if (needFB && !document.getElementById('odbc-fb-sdk')) {
+                const s = document.createElement('script');
+                s.id = 'odbc-fb-sdk'; s.async = true; s.defer = true; s.crossOrigin = 'anonymous';
+                s.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0';
+                document.body.appendChild(s);
+            }
+            if (needTT && !document.getElementById('odbc-tt-embed')) {
+                const s = document.createElement('script');
+                s.id = 'odbc-tt-embed'; s.async = true;
+                s.src = 'https://www.tiktok.com/embed.js';
+                document.body.appendChild(s);
+            }
+        };
+        if ('IntersectionObserver' in window) {
+            const sio = new IntersectionObserver((entries, obs) => {
+                if (entries.some(e => e.isIntersecting)) { loadSocials(); obs.disconnect(); }
+            }, { rootMargin: '500px' });
+            sio.observe(socialTarget);
+        } else {
+            loadSocials();
+        }
+    }
+
+    /* ============================================================
        "WE'RE LIVE" TOP BANNER
        Auto-shows during service windows (and EPISKIAZO daily 6 PM).
        Manual override: set LIVE_OVERRIDE to true (always show) or
