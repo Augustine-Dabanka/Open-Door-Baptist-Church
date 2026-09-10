@@ -2530,3 +2530,25 @@ footer { background: linear-gradient(135deg, #3a0a4a 0%, #6a1b9a 50%, #ad1457 10
 .newsletter-form .form-status.is-err { background: rgba(0,0,0,0.25); color: #ffd7d7; border-color: rgba(255,255,255,0.3); }
 /* Newsletter plain input invalid outline (it has no default border) */
 .newsletter-form input.is-invalid { outline: 2px solid #dc3545; outline-offset: 1px; }
+
+
+/* ============ EQUAL-HEIGHT SOCIAL PANELS (Facebook / TikTok) ============ */
+/* Both panels share one fixed height so neither is taller; embeds fill + clip */
+.fb-feed-wrap {
+    display: flex; flex-direction: column;
+    height: clamp(460px, 62vh, 600px);
+}
+.fb-feed-wrap > h4 { flex: 0 0 auto; }
+.fb-feed-wrap .fb-page,
+.fb-feed-wrap .tiktok-embed,
+.fb-feed-wrap > iframe.fb-videos-frame {
+    flex: 1 1 auto; min-height: 0; overflow: hidden; width: 100%; margin: 0;
+}
+.fb-feed-wrap .fb-page,
+.fb-feed-wrap .fb-page > span,
+.fb-feed-wrap .fb-page iframe,
+.fb-feed-wrap .tiktok-embed,
+.fb-feed-wrap .tiktok-embed iframe,
+.fb-feed-wrap iframe.fb-videos-frame {
+    height: 100% !important; min-height: 0 !important; max-height: 100% !important; aspect-ratio: auto !important;
+}
