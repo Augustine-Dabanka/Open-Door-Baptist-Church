@@ -100,17 +100,87 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Forms
+    /* ============================================================
+       FORMS — Formspree submission with sanitize + validate + honeypot
+       Set each form's action to your Formspree endpoint
+       (https://formspree.io/f/XXXXXXXX) — replace YOUR_FORM_ID.
+       ============================================================ */
+    // Strip dangerous control chars but KEEP tab/newline/CR (legit whitespace)
+    const stripControls = (v) => String(v == null ? '' : v).replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
+    // Single-line fields: collapse all whitespace to single spaces
+    const sanitizeLine = (v, max) => stripControls(v).replace(/\s+/g, ' ').trim().slice(0, max || 500);
+    // Message field: keep line breaks, tidy spaces, cap blank lines
+    const sanitizeMultiline = (v, max) => stripControls(v)
+        .replace(/\r\n?/g, '\n').replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim().slice(0, max || 2000);
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    const telRe = /^[+\d][\d\s()\-]{6,}$/;
+
     document.querySelectorAll('form.ajax-form').forEach(form => {
-        form.addEventListener('submit', (e) => {
+        const statusEl = form.querySelector('.form-status');
+        const setStatus = (msg, ok) => {
+            if (!statusEl) return;
+            statusEl.textContent = msg;
+            statusEl.className = 'form-status ' + (ok ? 'is-ok' : 'is-err');
+            statusEl.hidden = !msg;
+        };
+
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            // Honeypot: real users never fill this — bots do. Silently drop.
+            const hp = form.querySelector('[name="_gotcha"]');
+            if (hp && hp.value.trim() !== '') { form.reset(); return; }
+
+            // Sanitize + validate visible fields
+            let valid = true;
+            form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+            form.querySelectorAll('input, textarea, select').forEach(field => {
+                if (!field.name || field.name === '_gotcha' || field.type === 'hidden') return;
+                const max = parseInt(field.getAttribute('maxlength'), 10) || 500;
+                if (field.tagName === 'TEXTAREA') { field.value = sanitizeMultiline(field.value, max); }
+                else if (field.tagName !== 'SELECT') { field.value = sanitizeLine(field.value, max); }
+                const val = field.value;
+                const required = field.hasAttribute('required');
+                if (required && !val) { field.classList.add('is-invalid'); valid = false; return; }
+                if (field.type === 'email' && val && !emailRe.test(val)) { field.classList.add('is-invalid'); valid = false; return; }
+                if (field.type === 'tel' && val && !telRe.test(val)) { field.classList.add('is-invalid'); valid = false; return; }
+            });
+            if (!valid) { setStatus('Please fix the highlighted fields and try again.', false); return; }
+
             const btn = form.querySelector('button[type="submit"]');
-            if (!btn) return;
-            const original = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check"></i> Message Received — God Bless!';
-            btn.disabled = true;
-            form.reset();
-            setTimeout(() => { btn.innerHTML = original; btn.disabled = false; }, 4000);
+            const original = btn ? btn.innerHTML : '';
+            if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending…'; }
+            setStatus('', true);
+
+            // Not configured yet — guide the admin instead of failing silently
+            if (!form.action || form.action.indexOf('YOUR_FORM_ID') !== -1) {
+                console.warn('Formspree not configured: set the form action to your https://formspree.io/f/XXXX endpoint.');
+                setStatus('Thanks! This form isn’t connected yet — the site admin needs to add the Formspree ID.', false);
+                if (btn) { btn.disabled = false; btn.innerHTML = original; }
+                return;
+            }
+
+            try {
+                const res = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (res.ok) {
+                    form.reset();
+                    setStatus('Thank you! Your message has been sent. God bless. 🙏', true);
+                } else {
+                    const data = await res.json().catch(() => ({}));
+                    const msg = (data && data.errors && data.errors.length)
+                        ? data.errors.map(x => x.message).join(', ')
+                        : 'Sorry, something went wrong. Please try again later.';
+                    setStatus(msg, false);
+                }
+            } catch {
+                setStatus('Network error — please check your connection and try again.', false);
+            } finally {
+                if (btn) { btn.disabled = false; btn.innerHTML = original; }
+            }
         });
     });
 

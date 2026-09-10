@@ -95,22 +95,41 @@
             <div class="col-lg-7">
                 <div class="form-card">
                     <h2><i class="fas fa-paper-plane"></i> Send Us A Message</h2>
-                    <form class="ajax-form">
-                        <div class="mb-3"><label class="form-label">Full Name</label><input type="text" class="form-control" required></div>
-                        <div class="mb-3"><label class="form-label">Email</label><input type="email" class="form-control" required></div>
-                        <div class="mb-3"><label class="form-label">Phone</label><input type="tel" class="form-control"></div>
+                    <!-- Formspree: replace YOUR_FORM_ID with your form ID from https://formspree.io -->
+                    <form class="ajax-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+                        <input type="hidden" name="_subject" value="New Contact Message — ODBC Website">
+                        <!-- Spam honeypot: must stay empty -->
+                        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true"
+                            style="position:absolute;left:-9999px;height:0;width:0;opacity:0">
+                        <div class="mb-3"><label class="form-label">Full Name</label>
+                            <input type="text" name="name" class="form-control" maxlength="100" autocomplete="name" required>
+                            <div class="invalid-feedback">Please enter your name.</div>
+                        </div>
+                        <div class="mb-3"><label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" maxlength="150" autocomplete="email" required>
+                            <div class="invalid-feedback">Please enter a valid email address.</div>
+                        </div>
+                        <div class="mb-3"><label class="form-label">Phone</label>
+                            <input type="tel" name="phone" class="form-control" maxlength="30" inputmode="tel" autocomplete="tel">
+                            <div class="invalid-feedback">Please enter a valid phone number.</div>
+                        </div>
                         <div class="mb-3">
                             <label class="form-label">Reason</label>
-                            <select class="form-select" required>
+                            <select class="form-select" name="reason" required>
                                 <option selected disabled value="">Choose...</option>
                                 <option>Prayer Request</option>
                                 <option>Counseling</option>
                                 <option>Join the Church</option>
                                 <option>General Inquiry</option>
                             </select>
+                            <div class="invalid-feedback">Please choose a reason.</div>
                         </div>
-                        <div class="mb-3"><label class="form-label">Message</label><textarea class="form-control" rows="4" required></textarea></div>
+                        <div class="mb-3"><label class="form-label">Message</label>
+                            <textarea class="form-control" name="message" rows="4" maxlength="2000" required></textarea>
+                            <div class="invalid-feedback">Please enter a message.</div>
+                        </div>
                         <button type="submit" class="btn-3d w-100"><i class="fas fa-paper-plane me-2"></i>Submit</button>
+                        <div class="form-status" role="status" aria-live="polite" hidden></div>
                     </form>
                 </div>
             </div>

@@ -440,9 +440,14 @@
         <div class="newsletter-cta">
             <h3><i class="fas fa-envelope-open-text me-2"></i>Never Miss A Sermon</h3>
             <p>Subscribe to get weekly sermons and devotionals delivered straight to your inbox.</p>
-            <form class="newsletter-form ajax-form">
-                <input type="email" placeholder="Enter your email address" required>
+            <!-- Formspree: replace YOUR_FORM_ID with your form ID from https://formspree.io -->
+            <form class="newsletter-form ajax-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+                <input type="hidden" name="_subject" value="New Newsletter Signup — ODBC Website">
+                <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true"
+                    style="position:absolute;left:-9999px;height:0;width:0;opacity:0">
+                <input type="email" name="email" placeholder="Enter your email address" maxlength="150" autocomplete="email" required>
                 <button type="submit"><i class="fas fa-paper-plane me-2"></i>Subscribe</button>
+                <div class="form-status" role="status" aria-live="polite" hidden style="flex-basis:100%"></div>
             </form>
         </div>
 
