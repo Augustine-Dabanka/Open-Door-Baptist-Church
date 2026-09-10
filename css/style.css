@@ -1538,29 +1538,28 @@ button, .btn, [role="button"] { min-height: 40px; }
     color: rgba(255,255,255,0.85); margin-bottom: 22px;
     font-size: clamp(0.9rem, 0.85rem + 0.3vw, 1.05rem);
 }
+/* Slim, divided countdown line — flat numbers separated by hairlines (no boxes) */
 .countdown {
-    display: flex; justify-content: center; flex-wrap: wrap;
-    gap: clamp(10px, 2vw, 22px); margin-bottom: 8px;
+    display: flex; justify-content: center; align-items: stretch; flex-wrap: nowrap;
+    gap: 0; margin: 0 auto 8px; max-width: 420px;
 }
 .count-box {
-    min-width: clamp(66px, 16vw, 110px);
-    padding: clamp(12px, 2vw, 20px) clamp(8px, 1.5vw, 16px);
-    background: linear-gradient(160deg, rgba(255,255,255,0.16), rgba(255,255,255,0.05));
-    border: 1px solid rgba(255,255,255,0.22);
-    border-radius: 16px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 10px 22px rgba(0,0,0,0.25);
+    flex: 1 1 0; min-width: 0; text-align: center;
+    padding: 2px clamp(6px, 2.5vw, 16px);
+    background: none; border: none; border-radius: 0; box-shadow: none;
 }
+.count-box + .count-box { border-left: 1px solid rgba(255,255,255,0.28); }
 .count-num {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 1.2rem + 3vw, 3.4rem);
-    font-weight: 900; line-height: 1; color: #fff;
-    text-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    font-size: clamp(1.5rem, 1rem + 3vw, 2.9rem);
+    font-weight: 800; line-height: 1.05; color: #fff;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.35);
     font-variant-numeric: tabular-nums;
 }
 .count-label {
-    display: block; margin-top: 8px;
-    font-size: clamp(0.62rem, 0.55rem + 0.25vw, 0.8rem);
-    letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.75);
+    display: block; margin-top: 6px;
+    font-size: clamp(0.55rem, 0.5rem + 0.25vw, 0.72rem);
+    letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.7);
 }
 .countdown-live { margin-top: 18px; font-size: 0.85rem; color: rgba(255,255,255,0.8); }
 .countdown-live .dot {
@@ -2022,8 +2021,8 @@ footer .text-info { color: var(--gold) !important; }
 }
 .countdown-card { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.12); }
 .countdown-card .cd-tag { background: var(--gold); color: var(--brand-900); }
-.count-box { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.14); box-shadow: none; }
-.count-num { text-shadow: none; }
+.count-box { background: none; box-shadow: none; }
+.count-num { text-shadow: 0 2px 10px rgba(0,0,0,0.35); }
 .countdown-live .dot { background: var(--gold); animation: none; box-shadow: none; }
 .countdown-ended { color: var(--gold); }
 
