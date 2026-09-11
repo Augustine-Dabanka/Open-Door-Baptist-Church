@@ -2579,3 +2579,40 @@ footer a:hover .fab, footer a:hover .fas { color: var(--gold, #ffd166); transfor
 
 /* Keep inline glyphs optically aligned with their text */
 p .fa-solid, p .fas, p .far, p .fab, li .fas, li .far, li .fab { vertical-align: -0.06em; }
+
+/* ============================================================
+   21 DAYS HIGHLIGHTS — day-tabbed photo gallery + lightbox
+   ============================================================ */
+.day-pills { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 0 auto 28px; max-width: 940px; }
+.day-pill {
+    border: 1px solid var(--line, rgba(0,0,0,0.12)); background: #fff; color: var(--brand-700, #7b1fa2);
+    font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.8rem;
+    padding: 7px 15px; border-radius: 999px; cursor: pointer; transition: all 0.25s ease;
+}
+.day-pill:hover { border-color: var(--brand-600, #8e24aa); transform: translateY(-1px); }
+.day-pill.active { background: linear-gradient(135deg, #8e24aa, #ec407a); color: #fff; border-color: transparent; box-shadow: 0 8px 18px rgba(142,36,170,0.28); }
+.day-pill.empty { opacity: 0.5; }
+.highlight-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+.hl-item { padding: 0; border: none; background: none; cursor: pointer; border-radius: 14px; overflow: hidden; aspect-ratio: 4 / 3; box-shadow: 0 8px 20px rgba(74,20,140,0.14); }
+.hl-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+.hl-item:hover img { transform: scale(1.07); }
+.highlight-empty { text-align: center; color: var(--muted, #6d6678); padding: 34px 0; font-style: italic; }
+/* Lightbox */
+.lightbox { position: fixed; inset: 0; z-index: 1080; background: rgba(20,4,30,0.93); display: flex; align-items: center; justify-content: center; }
+.lightbox[hidden] { display: none; }
+.lb-img { max-width: 92vw; max-height: 86vh; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+.lb-close, .lb-prev, .lb-next {
+    position: absolute; background: rgba(255,255,255,0.12); color: #fff; border: none; cursor: pointer;
+    border-radius: 50%; width: 48px; height: 48px; font-size: 1.7rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center; transition: background 0.2s ease;
+}
+.lb-close:hover, .lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,0.3); }
+.lb-close { top: 20px; right: 20px; }
+.lb-prev { left: 16px; top: 50%; transform: translateY(-50%); }
+.lb-next { right: 16px; top: 50%; transform: translateY(-50%); }
+.lb-counter { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 0.9rem; letter-spacing: 1px; background: rgba(0,0,0,0.4); padding: 5px 14px; border-radius: 999px; }
+@media (max-width: 600px) {
+    .highlight-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
+    .lb-prev, .lb-next { width: 40px; height: 40px; font-size: 1.4rem; }
+    .lb-close { width: 40px; height: 40px; }
+}

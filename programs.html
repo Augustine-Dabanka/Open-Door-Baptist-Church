@@ -19,7 +19,7 @@
     <link rel="apple-touch-icon" href="images/Logo.jpg">
     <link rel="manifest" href="site.webmanifest">
     <meta name="theme-color" content="#4a148c">
-    <link rel="stylesheet" href="css/style.css?v=2026091106">
+    <link rel="stylesheet" href="css/style.css?v=2026091107">
 </head>
 
 <body>
@@ -145,6 +145,33 @@
             </div>
         </div>
     </section>
+
+    <!-- ============================================================
+         EPISKIAZO 21-DAY HIGHLIGHTS — photo gallery by day
+         To add a day: drop photos in images/Day N/ then add one line to
+         the HIGHLIGHTS config in the script near the bottom of this page.
+         ============================================================ -->
+    <section class="section-block highlights-section" id="Highlights">
+        <div class="heading-lead">
+            <span class="eyebrow">Moments of Grace</span>
+            <h2>21 Days Highlights</h2>
+        </div>
+        <p class="section-sub">Relive the presence and power of God, one day at a time.</p>
+        <div class="container">
+            <div class="day-pills" id="dayPills" role="tablist" aria-label="Select a day"></div>
+            <div class="highlight-grid" id="highlightGrid"></div>
+            <p class="highlight-empty" id="highlightEmpty" hidden>Photos for this day are coming soon — check back after the evening service.</p>
+        </div>
+    </section>
+
+    <!-- Lightbox for highlight photos -->
+    <div class="lightbox" id="lightbox" hidden aria-hidden="true">
+        <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+        <button class="lb-prev" id="lbPrev" aria-label="Previous photo">&#8249;</button>
+        <img class="lb-img" id="lbImg" src="" alt="">
+        <button class="lb-next" id="lbNext" aria-label="Next photo">&#8250;</button>
+        <div class="lb-counter" id="lbCounter"></div>
+    </div>
 
     <!-- ============================================================
          PROGRAMS / EVENTS — each with banner, brief, date & speakers
@@ -319,7 +346,83 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/main.js?v=2026091106"></script>
+    <script src="js/main.js?v=2026091107"></script>
+
+    <!-- 21 Days Highlights gallery -->
+    <script>
+    (function () {
+        // ===== EDIT HERE: add a day by dropping photos in images/Day N/ and listing them =====
+        var HIGHLIGHTS = {
+            1: ["Day 1/2.jpg","Day 1/3.jpg","Day 1/4.jpg","Day 1/5.jpg","Day 1/6.jpg","Day 1/7.jpg","Day 1/8.jpg","Day 1/9.jpg","Day 1/10.jpg","Day 1/11.jpg","Day 1/12.jpg","Day 1/13.jpg","Day 1/14.jpg","Day 1/15.jpg","Day 1/16.jpg","Day 1/17.jpg","Day 1/18.jpg","Day 1/20.jpg"]
+            // 2: ["Day 2/1.jpg", "Day 2/2.jpg"],  ... up to 21
+        };
+        var TOTAL_DAYS = 21;
+        var pills = document.getElementById('dayPills');
+        var grid = document.getElementById('highlightGrid');
+        var empty = document.getElementById('highlightEmpty');
+        if (!pills || !grid) return;
+
+        function enc(p) { return 'images/' + p.split('/').map(encodeURIComponent).join('/'); }
+        var currentList = [];
+
+        for (var d = 1; d <= TOTAL_DAYS; d++) {
+            var has = HIGHLIGHTS[d] && HIGHLIGHTS[d].length;
+            var b = document.createElement('button');
+            b.className = 'day-pill' + (has ? '' : ' empty');
+            b.textContent = 'Day ' + d;
+            b.setAttribute('data-day', d);
+            b.setAttribute('role', 'tab');
+            b.addEventListener('click', (function (day) { return function () { selectDay(day); }; })(d));
+            pills.appendChild(b);
+        }
+
+        function selectDay(d) {
+            var kids = pills.children;
+            for (var i = 0; i < kids.length; i++) {
+                kids[i].classList.toggle('active', +kids[i].getAttribute('data-day') === d);
+            }
+            var list = HIGHLIGHTS[d] || [];
+            currentList = list.map(enc);
+            grid.innerHTML = '';
+            if (!list.length) { empty.hidden = false; return; }
+            empty.hidden = true;
+            list.forEach(function (p, i) {
+                var btn = document.createElement('button');
+                btn.className = 'hl-item';
+                btn.type = 'button';
+                var img = document.createElement('img');
+                img.loading = 'lazy'; img.decoding = 'async';
+                img.src = enc(p);
+                img.alt = 'EPISKIAZO Day ' + d + ' highlight ' + (i + 1);
+                btn.appendChild(img);
+                btn.addEventListener('click', (function (idx) { return function () { openLb(idx); }; })(i));
+                grid.appendChild(btn);
+            });
+        }
+
+        // Lightbox
+        var lb = document.getElementById('lightbox');
+        var lbImg = document.getElementById('lbImg');
+        var lbCounter = document.getElementById('lbCounter');
+        var lbIndex = 0;
+        function showLb() { lbImg.src = currentList[lbIndex]; lbCounter.textContent = (lbIndex + 1) + ' / ' + currentList.length; }
+        function openLb(i) { lbIndex = i; showLb(); lb.hidden = false; lb.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; }
+        function closeLb() { lb.hidden = true; lb.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
+        function nav(dir) { lbIndex = (lbIndex + dir + currentList.length) % currentList.length; showLb(); }
+        document.getElementById('lbClose').addEventListener('click', closeLb);
+        document.getElementById('lbPrev').addEventListener('click', function () { nav(-1); });
+        document.getElementById('lbNext').addEventListener('click', function () { nav(1); });
+        lb.addEventListener('click', function (e) { if (e.target === lb) closeLb(); });
+        document.addEventListener('keydown', function (e) {
+            if (lb.hidden) return;
+            if (e.key === 'Escape') closeLb();
+            else if (e.key === 'ArrowLeft') nav(-1);
+            else if (e.key === 'ArrowRight') nav(1);
+        });
+
+        selectDay(1);
+    })();
+    </script>
 </body>
 
 </html>
