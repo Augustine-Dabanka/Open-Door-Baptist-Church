@@ -1285,11 +1285,14 @@ button, .btn, [role="button"] { min-height: 40px; }
 
 /* --- Map iframe: aspect-ratio based --- */
 .map-wrap {
-    height: auto;
-    aspect-ratio: 16 / 9;
-    min-height: 220px;
-    max-height: 480px;
+    height: clamp(280px, 45vh, 620px); /* fluid: phones ~280px up to TVs ~620px */
+    aspect-ratio: auto;
+    min-height: 0;
+    max-height: none;
+    width: 100%;
 }
+/* On very large / TV screens give the map more presence */
+@media (min-width: 1600px) { .map-wrap { height: clamp(460px, 50vh, 760px); } }
 
 /* --- Sermon filter buttons wrap nicely on tiny phones --- */
 .sermon-filters .filter-btn {
