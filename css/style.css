@@ -725,11 +725,15 @@ h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
 }
 .feature-box:hover { transform: translateY(-8px) rotateX(4deg) rotateY(-4deg); }
 .feature-box i {
-    font-size: 2.4rem;
-    color: var(--primary);
-    margin-bottom: 12px;
-    filter: drop-shadow(0 6px 10px rgba(106,27,154,0.4));
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 72px; height: 72px; border-radius: 50%;
+    font-size: 1.7rem; color: #fff; -webkit-text-fill-color: #fff;
+    background: linear-gradient(140deg, var(--brand-600, #8e24aa), var(--pink, #ec407a));
+    box-shadow: 0 12px 26px rgba(142,36,170,0.30);
+    margin-bottom: 16px;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
+.feature-box:hover i { transform: translateY(-4px) scale(1.06); box-shadow: 0 18px 34px rgba(236,64,122,0.36); }
 .feature-box h4 { font-weight: 700; margin-bottom: 8px; color: var(--dark); }
 .feature-box p { color: #555; font-size: 0.95rem; line-height: 1.6; }
 
@@ -1924,7 +1928,7 @@ h1, h2, h3, h4, h5 { letter-spacing: -0.01em; }
     transform: translateY(-4px);
     box-shadow: 0 1px 2px rgba(74,20,140,0.05), 0 16px 40px rgba(74,20,140,0.12);
 }
-.feature-box i, .vm-card i { color: var(--brand-600); filter: none; -webkit-text-fill-color: currentColor; background: none; }
+.vm-card i { color: var(--brand-600); filter: none; -webkit-text-fill-color: currentColor; background: none; }
 .leader-role, .sermon-tag, .speaker-role { background: var(--brand-600); }
 .speaker-role { background: none; color: var(--gold); }
 
@@ -2365,7 +2369,7 @@ footer { background: linear-gradient(135deg, #3a0a4a 0%, #6a1b9a 50%, #ad1457 10
 .bank-icon { background: linear-gradient(135deg, #8e24aa, #4a148c); }
 .speaker-avatar, .speaker-avatar.placeholder { background: linear-gradient(135deg, #8e24aa, #ec407a); }
 .leader-role, .sermon-tag, .program-badge.upcoming, .fact i { background: linear-gradient(135deg, #8e24aa, #c2185b); }
-.feature-box i, .vm-card i { color: #8e24aa; }
+.vm-card i { color: #8e24aa; }
 .project-card { border-top-color: #ec407a; }
 
 /* Small gold pops stay gold (original accent-2) */
@@ -2552,3 +2556,26 @@ footer { background: linear-gradient(135deg, #3a0a4a 0%, #6a1b9a 50%, #ad1457 10
 .fb-feed-wrap iframe.fb-videos-frame {
     height: 100% !important; min-height: 0 !important; max-height: 100% !important; aspect-ratio: auto !important;
 }
+
+/* ============================================================
+   UI ICON POLISH — consistent motion & brand-accent hovers
+   ============================================================ */
+/* Directional icons glide on hover of their button/link */
+.btn-3d .fa-arrow-right, .btn-ghost .fa-arrow-right, .back-btn .fa-arrow-left,
+.hero-cta-group a .fa-arrow-right, a .fa-arrow-right, a .fa-arrow-left, button .fa-arrow-right {
+    transition: transform 0.3s ease;
+}
+a:hover > .fa-arrow-right, .btn-3d:hover .fa-arrow-right, .btn-ghost:hover .fa-arrow-right,
+button:hover .fa-arrow-right { transform: translateX(4px); }
+a:hover > .fa-arrow-left, .back-btn:hover .fa-arrow-left { transform: translateX(-4px); }
+
+/* Footer social icons: brand-gold lift on hover */
+footer .fab, footer .fas { transition: transform 0.25s ease, color 0.25s ease; }
+footer a:hover .fab, footer a:hover .fas { color: var(--gold, #ffd166); transform: translateY(-2px) scale(1.12); }
+
+/* Give heart gives a gentle beat on hover */
+.nav-give .fa-heart { transition: transform 0.3s ease; }
+.nav-give:hover .fa-heart { transform: scale(1.18); }
+
+/* Keep inline glyphs optically aligned with their text */
+p .fa-solid, p .fas, p .far, p .fab, li .fas, li .far, li .fab { vertical-align: -0.06em; }
