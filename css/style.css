@@ -1046,7 +1046,7 @@ h2 { font-size: clamp(1.35rem, 1rem + 1.7vw, 2.2rem); line-height: 1.25; }
 h3 { font-size: clamp(1.15rem, 0.95rem + 1vw, 1.7rem); line-height: 1.3; }
 h4 { font-size: clamp(1rem, 0.9rem + 0.7vw, 1.35rem); }
 h5 { font-size: clamp(0.95rem, 0.88rem + 0.4vw, 1.15rem); }
-p, li, label { font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.08rem); }
+p, li, label { font-size: clamp(1rem, 0.95rem + 0.4vw, 1.2rem); }
 
 /* --- Hero carousel — true responsive aspect ratio --- */
 .hero-section .carousel-item {
@@ -2292,8 +2292,8 @@ footer .text-secondary { color: rgba(255,255,255,0.5) !important; font-size: 0.8
     .navbar-collapse { flex: 1 1 auto; }
     .navbar-nav { align-items: center; flex-wrap: nowrap; gap: 2px; }
     .navbar-nav .nav-link {
-        padding: 8px clamp(8px, 0.9vw, 14px) !important;
-        margin: 0; font-size: clamp(0.85rem, 0.8rem + 0.25vw, 0.95rem);
+        padding: 8px clamp(7px, 0.8vw, 13px) !important;
+        margin: 0; font-size: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
     }
     .navbar-nav .dropdown-menu { margin-top: 6px !important; }
 }
