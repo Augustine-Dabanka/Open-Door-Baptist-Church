@@ -2619,3 +2619,15 @@ p .fa-solid, p .fas, p .far, p .fab, li .fas, li .far, li .fab { vertical-align:
     .lb-prev, .lb-next { width: 40px; height: 40px; font-size: 1.4rem; }
     .lb-close { width: 40px; height: 40px; }
 }
+
+/* ===== Contribute button on Upcoming Project cards ===== */
+.project-contribute {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 100%; margin-top: 18px; padding: 11px 20px;
+    background: linear-gradient(135deg, #8e24aa, #ec407a); color: #fff;
+    font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.92rem; text-decoration: none;
+    border-radius: 999px; box-shadow: 0 8px 18px rgba(142,36,170,0.28);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.project-contribute:hover { transform: translateY(-2px); color: #fff; box-shadow: 0 12px 24px rgba(236,64,122,0.34); }
+.project-contribute i { color: #fff; }
