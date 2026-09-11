@@ -2293,7 +2293,7 @@ footer .text-secondary { color: rgba(255,255,255,0.5) !important; font-size: 0.8
     .navbar-nav { align-items: center; flex-wrap: nowrap; gap: 2px; }
     .navbar-nav .nav-link {
         padding: 8px clamp(8px, 0.9vw, 14px) !important;
-        margin: 0; font-size: clamp(0.74rem, 0.68rem + 0.2vw, 0.82rem);
+        margin: 0; font-size: clamp(0.85rem, 0.8rem + 0.25vw, 0.95rem);
     }
     .navbar-nav .dropdown-menu { margin-top: 6px !important; }
 }
