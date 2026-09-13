@@ -2631,3 +2631,32 @@ p .fa-solid, p .fas, p .far, p .fab, li .fas, li .far, li .fab { vertical-align:
 }
 .project-contribute:hover { transform: translateY(-2px); color: #fff; box-shadow: 0 12px 24px rgba(236,64,122,0.34); }
 .project-contribute i { color: #fff; }
+
+/* ============================================================
+   NOW / NEXT — auto-advancing program countdown (slim, flat timer)
+   ============================================================ */
+.now-next { padding: clamp(18px, 3vw, 30px) clamp(12px, 3vw, 24px); }
+.now-next[hidden] { display: none; }
+.nn-card {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: clamp(16px, 3vw, 32px);
+    background: linear-gradient(135deg, #3a0a4a 0%, #6a1b9a 50%, #ad1457 100%);
+    color: #fff; border-radius: clamp(16px, 2vw, 22px);
+    padding: clamp(20px, 3vw, 34px) clamp(22px, 3.5vw, 40px);
+    box-shadow: 0 20px 50px rgba(74,20,140,0.30);
+    max-width: 1100px; margin: 0 auto;
+}
+.nn-left { min-width: 240px; }
+.nn-status { display: inline-flex; align-items: center; gap: 8px; font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold, #ffd166); margin-bottom: 8px; }
+.nn-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gold, #ffd166); box-shadow: 0 0 0 0 rgba(255,209,102,0.7); animation: nnPulse 1.8s infinite; }
+.now-next.is-live .nn-dot { background: #4ade80; box-shadow: 0 0 0 0 rgba(74,222,128,0.7); animation: nnPulseGreen 1.6s infinite; }
+.now-next.is-live .nn-status { color: #86efac; }
+@keyframes nnPulse { 0%{box-shadow:0 0 0 0 rgba(255,209,102,.7)} 70%{box-shadow:0 0 0 10px rgba(255,209,102,0)} 100%{box-shadow:0 0 0 0 rgba(255,209,102,0)} }
+@keyframes nnPulseGreen { 0%{box-shadow:0 0 0 0 rgba(74,222,128,.7)} 70%{box-shadow:0 0 0 10px rgba(74,222,128,0)} 100%{box-shadow:0 0 0 0 rgba(74,222,128,0)} }
+.nn-left h3 { color: #fff; font-weight: 800; margin: 0 0 4px; font-size: clamp(1.2rem, 1rem + 1.2vw, 1.8rem); }
+.nn-when { margin: 0; color: rgba(255,255,255,0.82); font-size: clamp(0.85rem, 0.8rem + 0.3vw, 1rem); }
+.nn-timer { display: flex; align-items: stretch; gap: 0; }
+.nn-unit { text-align: center; padding: 0 clamp(10px, 2vw, 20px); }
+.nn-unit + .nn-unit { border-left: 1px solid rgba(255,255,255,0.25); }
+.nn-num { display: block; font-family: 'Playfair Display', serif; font-weight: 800; line-height: 1; font-size: clamp(1.7rem, 1.2rem + 2.4vw, 3rem); font-variant-numeric: tabular-nums; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+.nn-lab { display: block; margin-top: 6px; font-size: clamp(0.55rem, 0.5rem + 0.2vw, 0.72rem); letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+@media (max-width: 640px) { .nn-card { justify-content: center; text-align: center; } .nn-left { min-width: 0; } .nn-status { justify-content: center; } }

@@ -19,7 +19,7 @@
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
     <meta name="theme-color" content="#4a148c">
-    <link rel="stylesheet" href="css/style.css?v=2026091111">
+    <link rel="stylesheet" href="css/style.css?v=2026091112">
 </head>
 
 <body>
@@ -84,6 +84,30 @@
         <div class="caption">
             <h1>Programs &amp; Events</h1>
             <p>Come and encounter God with us — services, conventions, and special gatherings.</p>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         NOW / NEXT — auto-advancing countdown to the next program.
+         When the timer hits zero it rolls to the program that's on now,
+         then to the next one automatically. Edit the PROGRAMS list in the
+         script near the bottom of this page to add/adjust programs.
+         ============================================================ -->
+    <section class="now-next" id="NowNext" aria-live="polite" hidden>
+        <div class="container">
+            <div class="nn-card">
+                <div class="nn-left">
+                    <span class="nn-status"><span class="nn-dot"></span><span id="nnStatus">Up Next</span></span>
+                    <h3 id="nnTitle">—</h3>
+                    <p class="nn-when" id="nnWhen">—</p>
+                </div>
+                <div class="nn-timer" id="nnTimer" role="timer" aria-label="Countdown to next program">
+                    <div class="nn-unit"><span class="nn-num" id="nnD">00</span><span class="nn-lab">Days</span></div>
+                    <div class="nn-unit"><span class="nn-num" id="nnH">00</span><span class="nn-lab">Hrs</span></div>
+                    <div class="nn-unit"><span class="nn-num" id="nnM">00</span><span class="nn-lab">Min</span></div>
+                    <div class="nn-unit"><span class="nn-num" id="nnS">00</span><span class="nn-lab">Sec</span></div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -346,7 +370,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/main.js?v=2026091111"></script>
+    <script src="js/main.js?v=2026091112"></script>
 
     <!-- 21 Days Highlights gallery -->
     <script>
@@ -421,6 +445,94 @@
         });
 
         selectDay(1);
+    })();
+    </script>
+
+    <!-- NOW / NEXT auto-advancing countdown -->
+    <script>
+    (function () {
+        // ===== EDIT YOUR PROGRAMS HERE =====================================
+        // Recurring rules are expanded automatically; times are local time.
+        //   Daily event:  { title, dailyAt:'18:00', from:'2026-09-07', to:'2026-09-27', durationMin, location }
+        //   Weekly event: { title, weekday:0, at:'07:00', durationMin, location }   // 0=Sun … 6=Sat
+        //   One-off:      { title, at:'2026-11-15T09:00', durationMin, location }    // add when a date is confirmed
+        var PROGRAMS = [
+            { title: 'EPISKIAZO 2026 — Evening Session', dailyAt: '18:00', from: '2026-09-07', to: '2026-09-27', durationMin: 150, location: 'The Refreshing Cathedral' },
+            { title: 'Sunday Miracle Service', weekday: 0, at: '07:00', durationMin: 180, location: 'The Refreshing Cathedral' }
+            // , { title: 'Youth Conference', at: '2026-11-15T09:00', durationMin: 360, location: 'Main Auditorium' }
+            // , { title: 'Praise & Worship Night', at: '2026-10-24T18:00', durationMin: 150, location: 'The Refreshing Cathedral' }
+        ];
+        // ==================================================================
+
+        var sec = document.getElementById('NowNext');
+        if (!sec) return;
+        var elStatus = document.getElementById('nnStatus'), elTitle = document.getElementById('nnTitle'), elWhen = document.getElementById('nnWhen');
+        var elD = document.getElementById('nnD'), elH = document.getElementById('nnH'), elM = document.getElementById('nnM'), elS = document.getElementById('nnS');
+        var pad = function (n) { return String(n).padStart(2, '0'); };
+        var atDate = function (dateObj, hhmm) { var p = hhmm.split(':'); var d = new Date(dateObj); d.setHours(+p[0], +p[1] || 0, 0, 0); return d; };
+
+        // Expand every program into concrete occurrences within a window around now.
+        function occurrences(now) {
+            var start = new Date(now.getTime() - 2 * 864e5);   // 2 days back (to catch in-progress)
+            var end = new Date(now.getTime() + 120 * 864e5);   // 120 days ahead
+            var out = [];
+            PROGRAMS.forEach(function (p) {
+                var dur = (p.durationMin || 120) * 60000;
+                if (p.dailyAt) {
+                    var from = new Date(p.from + 'T00:00'); var to = new Date(p.to + 'T23:59');
+                    var d = new Date(Math.max(start, from));
+                    for (; d <= to && d <= end; d = new Date(d.getTime() + 864e5)) {
+                        var s = atDate(d, p.dailyAt); out.push({ title: p.title, location: p.location, start: s, end: new Date(s.getTime() + dur) });
+                    }
+                } else if (typeof p.weekday === 'number') {
+                    var c = new Date(start); c.setHours(0, 0, 0, 0);
+                    while (c.getDay() !== p.weekday) c = new Date(c.getTime() + 864e5);
+                    for (; c <= end; c = new Date(c.getTime() + 7 * 864e5)) {
+                        var s2 = atDate(c, p.at); out.push({ title: p.title, location: p.location, start: s2, end: new Date(s2.getTime() + dur) });
+                    }
+                } else if (p.at) {
+                    var s3 = new Date(p.at); out.push({ title: p.title, location: p.location, start: s3, end: new Date(s3.getTime() + dur) });
+                }
+            });
+            out.sort(function (a, b) { return a.start - b.start; });
+            return out;
+        }
+
+        function pick(now) {
+            var occ = occurrences(now);
+            var active = null, next = null;
+            for (var i = 0; i < occ.length; i++) {
+                if (now >= occ[i].start && now < occ[i].end) { active = occ[i]; break; }
+                if (occ[i].start > now) { next = occ[i]; break; }
+            }
+            return active || next;
+        }
+
+        var fmtWhen = function (d) {
+            return d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }) +
+                ', ' + d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+        };
+
+        function render() {
+            var now = new Date();
+            var o = pick(now);
+            if (!o) { sec.hidden = true; return; }
+            sec.hidden = false;
+            var live = now >= o.start && now < o.end;
+            var target = live ? o.end : o.start;
+            var diff = Math.max(0, target - now);
+            sec.classList.toggle('is-live', live);
+            elStatus.textContent = live ? 'Happening Now' : 'Up Next';
+            elTitle.textContent = o.title;
+            elWhen.textContent = (live ? 'Ends ' : 'Starts ') + fmtWhen(target) + ' • ' + o.location;
+            var s = Math.floor(diff / 1000);
+            elD.textContent = pad(Math.floor(s / 86400));
+            elH.textContent = pad(Math.floor((s % 86400) / 3600));
+            elM.textContent = pad(Math.floor((s % 3600) / 60));
+            elS.textContent = pad(s % 60);
+        }
+        render();
+        setInterval(render, 1000);
     })();
     </script>
 </body>
